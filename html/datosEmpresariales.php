@@ -64,7 +64,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
         <?php
 
         $titular = $_SESSION['nus_PORTALCONSULTANCY'];
-        $Consulta_cliente = mysqli_query($con, "select i.servicio as dat1, i.fecha_afiliacion as dat2, i.costo_plan as dat3, t.nombre_tipo as dat4 
+        $Consulta_cliente = mysqli_query($con, "select i.servicio as dat1, i.fecha_afiliacion as dat2, i.costo_plan as dat3, t.nombre_tipo as dat4, c.idcliente as dat5
         from usuario u,persona p, cliente c, info i , tipo_plan t
         where u.idusuario=p.idusuario and p.idpersona=c.idpersona and u.email='$titular'  
         and c.idcliente=i.idcliente and i.idtipo_plan=t.idtipo_plan;");
@@ -73,6 +73,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
           $fechaInicio = $valorft['dat2'];
           $costo = $valorft['dat3'];
           $tipoPlan = $valorft['dat4'];
+          $idcliente=$valorft['dat5'];
         }
         ?>
         <!-- Content wrapper -->
@@ -93,9 +94,9 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                   <li class="nav-item">
                     <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-bell me-1"></i> Información Empresarial</a>
                   </li>
-                  <li class="nav-item">
+                  <!-- <li class="nav-item">
                     <a class="nav-link" href="pages-account-settings-connections.html"><i class="bx bx-link-alt me-1"></i> Connections</a>
-                  </li>
+                  </li> -->
                 </ul>
                 <div class="card">
                   <!-- Notifications -->
@@ -117,45 +118,40 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                         </tr>
                       </thead>
                       <tbody>
-                      <?php $ConsultaEmpresas = mysqli_query($con, "select i.servicio as dat1, i.fecha_afiliacion as dat2, i.costo_plan as dat3, t.nombre_tipo as dat4 
-                          from usuario u,persona p, cliente c, info i , tipo_plan t
-                          where u.idusuario=p.idusuario and p.idpersona=c.idpersona and u.email='$titular' and c.telefono='LP202024028' 
-                          and c.idcliente=i.idcliente and i.idtipo_plan=t.idtipo_plan;");
+                      <?php $ConsultaEmpresas = mysqli_query($con, "select e.dato as dat1, concat(p.apellido,' ',p.nombre) as dat2, p.telefono as dat3, a.detalle_horario as dat4 
+                          from persona p, cliente c, info i , asesor a, empresa e 
+                          where c.idcliente=i.idcliente and c.idcliente=e.idcliente and i.idasesor=a.idasesor and a.idpersona=p.idpersona and c.idcliente=$idcliente ;");
+                          $ContTabEmpresas=1;
                         while ($valorft = mysqli_fetch_array($ConsultaEmpresas)) {
                           $servicioss = $valorft['dat1'];
-                          echo "<h1>probando texto</h1>";
+                          echo "<tr>
+                          <td class=\"text-nowrap\">".$ContTabEmpresas."</td>
+                          <td class=\"text-nowrap\">".$valorft['dat1']."</td>
+                          <td class=\"text-nowrap\">".$valorft['dat2']."</td>
+                          <td>".$valorft['dat3']."</td>
+                          <td>".$valorft['dat4']."</td>
+                          
+                        </tr>";
                         }
                         ?>
-                        <tr>
-                          <td class="text-nowrap">1</td>
-                          <td class="text-nowrap">New for you</td>
-                          <td>
-
-                          </td>
-                          <td>
-
-                          </td>
-                          <td>
-
-                          </td>
-                        </tr>
+                        
 
                       </tbody>
                     </table>
                   </div>
                   <div class="card-body">
-                    <h6>When should we send you notifications?</h6>
+                    <h6>Desea seguir recibiendo notificaciones por correo electrónico?</h6>
                     <form action="javascript:void(0);">
                       <div class="row">
                         <div class="col-sm-6">
                           <select id="sendNotification" class="form-select" name="sendNotification">
-                            <option selected>Only when I'm online</option>
-                            <option>Anytime</option>
+                            <option selected>SI</option>
+                            <option>NUNCA</option>
                           </select>
                         </div>
                         <div class="mt-4">
-                          <button type="submit" class="btn btn-primary me-2">Save changes</button>
-                          <button type="reset" class="btn btn-outline-secondary">Discard</button>
+                          <button type="submit" class="btn btn-primary me-2">Guardar Cambios</button>
+                          <button type="reset" class="btn btn-outline-secondary">Cancelar</button>
                         </div>
                       </div>
                     </form>

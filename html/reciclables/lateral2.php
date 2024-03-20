@@ -77,14 +77,14 @@
         </li>
         <li class="menu-item">
           <a href="datosEmpresariales.php" class="menu-link">
-            <div data-i18n="Notifications">Notificationes</div>
+            <div data-i18n="Notifications">Información empresarial</div>
           </a>
         </li>
-        <li class="menu-item">
+        <!-- <li class="menu-item">
           <a href="pages-account-settings-connections.html" class="menu-link">
-            <div data-i18n="Connections">Información empresarial</div>
+            <div data-i18n="Connections"></div>
           </a>
-        </li>
+        </li> -->
       </ul>
     </li>
 

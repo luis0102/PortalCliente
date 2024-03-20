@@ -90,21 +90,21 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                   <li class="nav-item">
                     <a class="nav-link" href="datosEmpresariales.php"><i class="bx bx-bell me-1"></i> Información empresarial</a>
                   </li>
-                  <li class="nav-item">
+                  <!-- <li class="nav-item">
                     <a class="nav-link" href="pages-account-settings-connections.html"><i class="bx bx-link-alt me-1"></i> Conexiones</a>
-                  </li>
+                  </li> -->
                 </ul>
                 <div class="card mb-4">
                   <h5 class="card-header">Detalles del Perfil</h5>
                   <!-- Account -->
                   <div class="card-body">
                     <div class="d-flex align-items-start align-items-sm-center gap-4">
-                      <img src="../assets/img/avatars/1.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+                      <img src="../assets/img/avatars/8.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
                       <div class="button-wrapper">
                         <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
                           <span class="d-none d-sm-block">Cambiar imagen</span>
                           <i class="bx bx-upload d-block d-sm-none"></i>
-                          <input type="file" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg" />
+                          <input type="file" id="upload" name="upload" class="account-file-input" hidden accept="image/png, image/jpeg" />
                         </label>
                         <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
                           <i class="bx bx-reset d-block d-sm-none"></i>
@@ -112,6 +112,9 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                         </button>
 
                         <p class="text-muted mb-0">Formatos permitidos: JPG, GIF or PNG. Tamaño máximo 500Kb</p>
+                        <button type="button" id="EnviarFoto" name="EnviarFoto" class="btn rounded-pill btn-outline-primary">
+                          <span class="tf-icons bx bxs-send"></span>&nbsp; Guardar Foto
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -233,6 +236,8 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                         <button type="reset" class="btn btn-outline-secondary">Cancelar</button>
                       </div>
                     </form>
+                    <div id="mensajeCuenta">
+                    </div>
                   </div>
                   <!-- /Account -->
                 </div>
@@ -262,7 +267,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                         <input class="form-check-input" type="checkbox" name="accountActivation" id="accountActivation" />
                         <label class="form-check-label" for="accountActivation">Estoy de acuerdo</label>
                       </div>
-                      <button type="submit" class="btn btn-danger deactivate-account">Cambiar contraseña</button>
+                      <button type="submit" id="UpdatePassword" name="UpdatePassword" class="btn btn-danger deactivate-account">Cambiar contraseña</button>
                     </form>
                   </div>
                 </div>
@@ -329,12 +334,32 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
   <script src="jvscons/funcionesjs.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
+      $("#EnviarFoto").on('click', function(e) {
+        e.preventDefault();
+        actualizarFoto();
+      });
+    });
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
       $("#guardarcambio").on('click', function(e) {
         e.preventDefault();
         actualizarUsuario();
       });
     });
   </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#UpdatePassword").on('click', function(e) {
+        e.preventDefault();
+        actualizarPassword();
+      });
+    });
+  </script>
+  <script src="jvscons/funcionesjs.js"></script>
+  <?php
+  include  "reciclables/scripts2.php";
+  ?>
 </body>
 
 </html>
