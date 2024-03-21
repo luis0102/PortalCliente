@@ -69,6 +69,20 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
 
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Información Tributaria /</span> Persona Física</h4>
+                        <?php
+
+                        $titular = $_SESSION['nus_PORTALCONSULTANCY'];
+                        $Consulta_cliente = mysqli_query($con, "select i.servicio as dat1, i.fecha_afiliacion as dat2, i.costo_plan as dat3, c.idcliente as dat4, i.idinfo as dat5 
+                        from usuario u,persona p, cliente c, info i 
+                        where u.idusuario=p.idusuario and p.idpersona=c.idpersona and u.email='luis95k@gmail.com' and c.idcliente=i.idcliente;");
+                        while ($valorft = mysqli_fetch_array($Consulta_cliente)) {
+                            $servicio = $valorft['dat1'];
+                            $fechaInicio = $valorft['dat2'];
+                            $costo = $valorft['dat3'];
+                            $cliente = $valorft['dat4'];
+                            $idinfo = $valorft['dat5'];
+                        }
+                        ?>
                         <!-- Bootstrap Table with Header - Footer -->
                         <div class="card">
                             <h5 class="card-header">Declaraciones SAT</h5>
@@ -76,6 +90,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
+                                            <th>N°</th>
                                             <th>Mes</th>
                                             <th>ISR*</th>
                                             <th>IVA*</th>
@@ -85,24 +100,38 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+                                        // select d.mes as dat1, d.isr as dat2, d.iva as dat3, d.ruta as dat4 
+                                        // FROM doc_tributacion d, info i, tipo t, tipo_documento td, empresa e 
+                                        // WHERE d.idinfo=1 AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idempresa=e.idempresa;
+                                        $ConsultaEmpresas = mysqli_query($con, "select d.mes as dat1, d.isr as dat2, d.iva as dat3, sum(d.isr+d.iva) as dat4, d.ruta as dat5 
+                                            FROM doc_tributacion d, info i, tipo t, tipo_documento td 
+                                            WHERE d.idinfo=$idinfo AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idtipo=1 AND d.idtipo_documento=1");
+                                        $ContTabEmpresas = 1;
+                                        while ($valorft = mysqli_fetch_array($ConsultaEmpresas)) {
+                                            $servicioss = $valorft['dat1'];
+                                            echo "<tr>
+                                        <td class=\"text-nowrap\"><strong>" . $ContTabEmpresas . "</strong></td>
+                                        <td class=\"text-nowrap\">" . $valorft['dat1'] . "</td>
+                                        <td class=\"text-nowrap\">$ " . $valorft['dat2'] . "</td>
+                                        <td>$ " . $valorft['dat3'] . "</td>
+                                        <td>$ " . $valorft['dat4'] . "</td>
+                                        <td><span class=\"badge bg-label-warning me-1\">Pendiente</span></td>
+                                        <td>
+                                            <a type=\"button\" href=\"docs/" . $valorft['dat5'] . "\" class=\"btn btn-icon btn-outline-primary\">
+                                                <span class=\"tf-icons bx bxs-file-pdf\"></span>
+                                                <box-icon name='pie-chart-alt'></box-icon>
+                                            </a>
+                                        </td>
+                                        </tr>";
+                                        }
+                                        ?>
                                         <tr>
                                             <td><strong>MES1</strong></td>
                                             <td>$ 000.00</td>
                                             <td>$ 000.00</td>
                                             <td>$ 000.00</td>
-                                            <td><span class="badge bg-label-success me-1">Completado</span></td>
-                                            <td>
-                                                <button type="button" class="btn btn-icon btn-outline-primary">
-                                                    <span class="tf-icons bx bxs-file-pdf"></span>
-                                                    <box-icon name='pie-chart-alt'></box-icon>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>MES1</strong></td>
-                                            <td>$ 000.00</td>
-                                            <td>$ 000.00</td>
-                                            <td>$ 000.00</td>
+                                            <td></td>
                                             <td><span class="badge bg-label-warning me-1">Pendiente</span></td>
                                             <td>
                                                 <button type="button" class="btn btn-icon btn-outline-primary">
@@ -116,6 +145,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                             <td>$ 000.00</td>
                                             <td>$ 000.00</td>
                                             <td>$ 000.00</td>
+                                            <td></td>
                                             <td><span class="badge bg-label-success me-1">Completado</span></td>
                                             <td>
                                                 <button type="button" class="btn btn-icon btn-outline-primary">
@@ -131,7 +161,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                             <th>Total</th>
                                             <th>Total</th>
                                             <th>Total</th>
-                                            
+
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -144,6 +174,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
+                                            <th><strong>N°</strong></th>
                                             <th>Mes</th>
                                             <th>ISR*</th>
                                             <th>IVA*</th>
@@ -153,8 +184,35 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+                                        // select d.mes as dat1, d.isr as dat2, d.iva as dat3, d.ruta as dat4 
+                                        // FROM doc_tributacion d, info i, tipo t, tipo_documento td, empresa e 
+                                        // WHERE d.idinfo=1 AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idempresa=e.idempresa;
+                                        $ConsultaEmpresas = mysqli_query($con, "select d.mes as dat1, d.isr as dat2, d.iva as dat3, sum(d.isr+d.iva) as dat4, d.ruta as dat5 
+                                            FROM doc_tributacion d, info i, tipo t, tipo_documento td 
+                                            WHERE d.idinfo=$idinfo AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idtipo=1 AND d.idtipo_documento=2");
+                                        $ContTabEmpresas = 1;
+                                        while ($valorft = mysqli_fetch_array($ConsultaEmpresas)) {
+                                            $servicioss = $valorft['dat1'];
+                                            echo "<tr>
+                                        <td class=\"text-nowrap\"><strong>" . $ContTabEmpresas . "</strong></td>
+                                        <td class=\"text-nowrap\">" . $valorft['dat1'] . "</td>
+                                        <td class=\"text-nowrap\">$ " . $valorft['dat2'] . "</td>
+                                        <td>$ " . $valorft['dat3'] . "</td>
+                                        <td>$ " . $valorft['dat4'] . "</td>
+                                        <td><span class=\"badge bg-label-warning me-1\">Pendiente</span></td>
+                                        <td>
+                                            <a type=\"button\" href=\"docs/" . $valorft['dat5'] . "\" class=\"btn btn-icon btn-outline-primary\">
+                                                <span class=\"tf-icons bx bxs-file-pdf\"></span>
+                                                <box-icon name='pie-chart-alt'></box-icon>
+                                            </a>
+                                        </td>
+                                        </tr>";
+                                        }
+                                        ?>
                                         <tr>
-                                            <td><strong>MES1</strong></td>
+
+                                            <td>MES</td>
                                             <td>$ 000.00</td>
                                             <td>$ 000.00</td>
                                             <td>$ 000.00</td>
@@ -199,7 +257,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                             <th>Total</th>
                                             <th>Total</th>
                                             <th>Total</th>
-                                            
+
                                         </tr>
                                     </tfoot>
                                 </table>
