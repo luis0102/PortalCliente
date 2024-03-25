@@ -104,56 +104,38 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                         // select d.mes as dat1, d.isr as dat2, d.iva as dat3, d.ruta as dat4 
                                         // FROM doc_tributacion d, info i, tipo t, tipo_documento td, empresa e 
                                         // WHERE d.idinfo=1 AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idempresa=e.idempresa;
-                                        $ConsultaEmpresas = mysqli_query($con, "select d.mes as dat1, d.isr as dat2, d.iva as dat3, sum(d.isr+d.iva) as dat4, d.ruta as dat5 
+                                        $ConsultaEmpresas = mysqli_query($con, "select d.mes as dat1, d.isr as dat2, d.iva as dat3, d.isr+d.iva as dat4, d.idestado_doc as dat5, d.ruta as dat6 
                                             FROM doc_tributacion d, info i, tipo t, tipo_documento td 
                                             WHERE d.idinfo=$idinfo AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idtipo=1 AND d.idtipo_documento=1");
-                                        $ContTabEmpresas = 1;
+                                        $ContTabEmpresas1 = 1;
                                         while ($valorft = mysqli_fetch_array($ConsultaEmpresas)) {
                                             $servicioss = $valorft['dat1'];
                                             echo "<tr>
-                                        <td class=\"text-nowrap\"><strong>" . $ContTabEmpresas . "</strong></td>
-                                        <td class=\"text-nowrap\">" . $valorft['dat1'] . "</td>
-                                        <td class=\"text-nowrap\">$ " . $valorft['dat2'] . "</td>
-                                        <td>$ " . $valorft['dat3'] . "</td>
-                                        <td>$ " . $valorft['dat4'] . "</td>
-                                        <td><span class=\"badge bg-label-warning me-1\">Pendiente</span></td>
-                                        <td>
-                                            <a type=\"button\" href=\"docs/" . $valorft['dat5'] . "\" class=\"btn btn-icon btn-outline-primary\">
-                                                <span class=\"tf-icons bx bxs-file-pdf\"></span>
-                                                <box-icon name='pie-chart-alt'></box-icon>
-                                            </a>
-                                        </td>
-                                        </tr>";
+                                            <td class=\"text-nowrap\"><strong>" . $ContTabEmpresas1 . "</strong></td>
+                                            <td class=\"text-nowrap\">" . $valorft['dat1'] . "</td>
+                                            <td class=\"text-nowrap\">$ " . $valorft['dat2'] . "</td>
+                                            <td>$ " . $valorft['dat3'] . "</td>
+                                            <td>$ " . $valorft['dat4'] . "</td>
+                                            <td>";
+                                            if ($valorft['dat5'] == 1) {
+                                                echo "<span class=\"badge bg-label-warning me-1\">Pendiente</span>";
+                                            } else {
+                                                if ($valorft['dat5'] == 2) {
+                                                    echo "<span class=\"badge bg-label-success me-1\">Completado</span>";
+                                                }
+                                            }
+                                            echo "</td>
+                                            <td>
+                                                <a type=\"button\" href=\"docs/" . $valorft['dat6'] . "\" class=\"btn btn-icon btn-outline-primary\">
+                                                    <span class=\"tf-icons bx bxs-file-pdf\"></span>
+                                                    <box-icon name='pie-chart-alt'></box-icon>
+                                                </a>
+                                            </td>
+                                            </tr>";
+                                            $ContTabEmpresas1++;
                                         }
                                         ?>
-                                        <tr>
-                                            <td><strong>MES1</strong></td>
-                                            <td>$ 000.00</td>
-                                            <td>$ 000.00</td>
-                                            <td>$ 000.00</td>
-                                            <td></td>
-                                            <td><span class="badge bg-label-warning me-1">Pendiente</span></td>
-                                            <td>
-                                                <button type="button" class="btn btn-icon btn-outline-primary">
-                                                    <span class="tf-icons bx bxs-file-pdf"></span>
-                                                    <box-icon name='pie-chart-alt'></box-icon>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>MES1</strong></td>
-                                            <td>$ 000.00</td>
-                                            <td>$ 000.00</td>
-                                            <td>$ 000.00</td>
-                                            <td></td>
-                                            <td><span class="badge bg-label-success me-1">Completado</span></td>
-                                            <td>
-                                                <button type="button" class="btn btn-icon btn-outline-primary">
-                                                    <span class="tf-icons bx bxs-file-pdf"></span>
-                                                    <box-icon name='pie-chart-alt'></box-icon>
-                                                </button>
-                                            </td>
-                                        </tr>
+
                                     </tbody>
                                     <tfoot class="table-border-bottom-0">
                                         <tr>
@@ -188,68 +170,38 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                         // select d.mes as dat1, d.isr as dat2, d.iva as dat3, d.ruta as dat4 
                                         // FROM doc_tributacion d, info i, tipo t, tipo_documento td, empresa e 
                                         // WHERE d.idinfo=1 AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idempresa=e.idempresa;
-                                        $ConsultaEmpresas = mysqli_query($con, "select d.mes as dat1, d.isr as dat2, d.iva as dat3, sum(d.isr+d.iva) as dat4, d.ruta as dat5 
+                                        $ConsultaEmpresas = mysqli_query($con, "select d.mes as dat1, d.isr as dat2, d.iva as dat3, d.isr+d.iva as dat4, d.idestado_doc as dat5, d.ruta as dat6
                                             FROM doc_tributacion d, info i, tipo t, tipo_documento td 
                                             WHERE d.idinfo=$idinfo AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idtipo=1 AND d.idtipo_documento=2");
-                                        $ContTabEmpresas = 1;
+                                        $ContTabEmpresas2 = 1;
                                         while ($valorft = mysqli_fetch_array($ConsultaEmpresas)) {
                                             $servicioss = $valorft['dat1'];
                                             echo "<tr>
-                                        <td class=\"text-nowrap\"><strong>" . $ContTabEmpresas . "</strong></td>
-                                        <td class=\"text-nowrap\">" . $valorft['dat1'] . "</td>
-                                        <td class=\"text-nowrap\">$ " . $valorft['dat2'] . "</td>
-                                        <td>$ " . $valorft['dat3'] . "</td>
-                                        <td>$ " . $valorft['dat4'] . "</td>
-                                        <td><span class=\"badge bg-label-warning me-1\">Pendiente</span></td>
-                                        <td>
-                                            <a type=\"button\" href=\"docs/" . $valorft['dat5'] . "\" class=\"btn btn-icon btn-outline-primary\">
-                                                <span class=\"tf-icons bx bxs-file-pdf\"></span>
-                                                <box-icon name='pie-chart-alt'></box-icon>
-                                            </a>
-                                        </td>
-                                        </tr>";
+                                            <td class=\"text-nowrap\"><strong>" . $ContTabEmpresas2 . "</strong></td>
+                                            <td class=\"text-nowrap\">" . $valorft['dat1'] . "</td>
+                                            <td class=\"text-nowrap\">$ " . $valorft['dat2'] . "</td>
+                                            <td>$ " . $valorft['dat3'] . "</td>
+                                            <td>$ " . $valorft['dat4'] . "</td>
+                                            <td>";
+                                            if ($valorft['dat5'] == 1) {
+                                                echo "<span class=\"badge bg-label-warning me-1\">Pendiente</span>";
+                                            } else {
+                                                if ($valorft['dat5'] == 2) {
+                                                    echo "<span class=\"badge bg-label-success me-1\">Completado</span>";
+                                                }
+                                            }
+                                            echo "</td>
+                                            <td>
+                                                <a type=\"button\" href=\"docs/" . $valorft['dat6'] . "\" class=\"btn btn-icon btn-outline-primary\">
+                                                    <span class=\"tf-icons bx bxs-file-pdf\"></span>
+                                                    <box-icon name='pie-chart-alt'></box-icon>
+                                                </a>
+                                            </td>
+                                            </tr>";
+                                            $ContTabEmpresas2++;
                                         }
                                         ?>
-                                        <tr>
 
-                                            <td>MES</td>
-                                            <td>$ 000.00</td>
-                                            <td>$ 000.00</td>
-                                            <td>$ 000.00</td>
-                                            <td><span class="badge bg-label-success me-1">Completado</span></td>
-                                            <td>
-                                                <button type="button" class="btn btn-icon btn-outline-primary">
-                                                    <span class="tf-icons bx bxs-file-pdf"></span>
-                                                    <box-icon name='pie-chart-alt'></box-icon>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>MES1</strong></td>
-                                            <td>$ 000.00</td>
-                                            <td>$ 000.00</td>
-                                            <td>$ 000.00</td>
-                                            <td><span class="badge bg-label-warning me-1">Pendiente</span></td>
-                                            <td>
-                                                <button type="button" class="btn btn-icon btn-outline-primary">
-                                                    <span class="tf-icons bx bxs-file-pdf"></span>
-                                                    <box-icon name='pie-chart-alt'></box-icon>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>MES1</strong></td>
-                                            <td>$ 000.00</td>
-                                            <td>$ 000.00</td>
-                                            <td>$ 000.00</td>
-                                            <td><span class="badge bg-label-success me-1">Completado</span></td>
-                                            <td>
-                                                <button type="button" class="btn btn-icon btn-outline-primary">
-                                                    <span class="tf-icons bx bxs-file-pdf"></span>
-                                                    <box-icon name='pie-chart-alt'></box-icon>
-                                                </button>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                     <tfoot class="table-border-bottom-0">
                                         <tr>
@@ -339,45 +291,39 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
+                                            <th>N°</th>
                                             <th>Fecha</th>
+                                            <th>Mes</th>
                                             <th>Descripción</th>
                                             <th>Adjunto</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><strong>MES1</strong></td>
-                                            <td>Ninguna</td>
-
+                                        <?php
+                                        // select d.mes as dat1, d.isr as dat2, d.iva as dat3, d.ruta as dat4 
+                                        // FROM doc_tributacion d, info i, tipo t, tipo_documento td, empresa e 
+                                        // WHERE d.idinfo=1 AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idempresa=e.idempresa;
+                                        $ConsultaEmpresas = mysqli_query($con, "select d.fecha_registro as dat1, d.mes as dat2, d.detalle as dat3, d.ruta as dat4
+                                            FROM doc_tributacion d, info i, tipo t, tipo_documento td 
+                                            WHERE d.idinfo=$idinfo AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idtipo=1 AND d.idtipo_documento=4");
+                                        $ContTabEmpresas2 = 1;
+                                        while ($valorft = mysqli_fetch_array($ConsultaEmpresas)) {
+                                            $servicioss = $valorft['dat1'];
+                                            echo "<tr>
+                                            <td class=\"text-nowrap\"><strong>" . $ContTabEmpresas2 . "</strong></td>
+                                            <td class=\"text-nowrap\">" . $valorft['dat1'] . "</td>
+                                            <td class=\"text-nowrap\">" . $valorft['dat2'] . "</td>
+                                            <td class=\"text-nowrap\">" . $valorft['dat3'] . "</td>
                                             <td>
-                                                <button type="button" class="btn btn-icon btn-outline-primary">
-                                                    <span class="tf-icons bx bxs-file-pdf"></span>
+                                                <a type=\"button\" href=\"docs/" . $valorft['dat4'] . "\" class=\"btn btn-icon btn-outline-primary\">
+                                                    <span class=\"tf-icons bx bxs-file-pdf\"></span>
                                                     <box-icon name='pie-chart-alt'></box-icon>
-                                                </button>
+                                                </a>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>MES1</strong></td>
-                                            <td>Ninguna</td>
-
-                                            <td>
-                                                <button type="button" class="btn btn-icon btn-outline-primary">
-                                                    <span class="tf-icons bx bxs-file-pdf"></span>
-                                                    <box-icon name='pie-chart-alt'></box-icon>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>MES1</strong></td>
-                                            <td>Ninguna</td>
-
-                                            <td>
-                                                <button type="button" class="btn btn-icon btn-outline-primary">
-                                                    <span class="tf-icons bx bxs-file-pdf"></span>
-                                                    <box-icon name='pie-chart-alt'></box-icon>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                            </tr>";
+                                            $ContTabEmpresas2++;
+                                        }
+                                        ?>
                                     </tbody>
                                     <tfoot class="table-border-bottom-0">
                                         <tr>

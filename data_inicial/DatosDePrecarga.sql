@@ -1,0 +1,14 @@
+INSERT INTO estadou ( estado) VALUES ('ACTIVO'), ('INACTIVO');
+INSERT INTO usuario ( email, psw, idestadou) VALUES ('asesor@gmail.com', '123', '1'), ('luis95k@gmail.com', '123', '1');
+INSERT INTO persona ( nombre, apellido, telefono, idusuario) VALUES ( 'luis', 'pastor ', NULL, '2'), ( 'asesor Nombre', 'asesor Apellido', NULL, '1');
+INSERT INTO cliente ( idpersona) VALUES ( '1');
+INSERT INTO asesor ( detalle_horario, folio, idpersona) VALUES ( '08:00-18:00', 'AAAA12345', '2');
+INSERT INTO tipo_plan (nombre_tipo) VALUES ('Mensual');
+INSERT INTO empresa ( dato, idcliente) VALUES ('PROYSHOP', '1');
+INSERT INTO tipo ( tipo) VALUES ( 'Persona Física'), ( 'Persona Moral');
+INSERT INTO tipo_documento (tipo_documento) VALUES ('SAT'), ('Cedular'),('DIOT'), ('OTRO');
+INSERT INTO estado_doc ( estadodoc) VALUES ( 'PENDIENTE'), ( 'COMPLETADO');
+INSERT INTO info ( servicio, fecha_afiliacion, costo_plan, idtipo_plan, idasesor, idcliente) VALUES ( 'Declaración Mensual', '2020-02-02', '1000', '1', '1', '1');
+INSERT INTO doc_tributacion ( mes, año, ISR, IVA, ruta, detalle, fecha_registro, idinfo, idtipo, idtipo_documento, idempresa, idestado_doc) VALUES ('FEBRERO', '2024', '200', '300', 'ruta', NULL, NULL, '1', '1', '1', NULL, '1'), ( 'FEBRERO', '2024', '300', '300', 'ruta', NULL, NULL, '1', '1', '2', NULL, '2'), ( 'FEBRERO', '2024', '400', '400', 'ruta', NULL, NULL, '1', '2', '1', '1', '2'), ( 'FEBRERO', '2024', '250', '250', 'ruta', NULL, NULL, '1', '2', '2', '1', '1');
+INSERT INTO doc_tributacion ( mes, año, ISR, IVA, ruta, detalle, fecha_registro, idinfo, idtipo, idtipo_documento, idempresa, idestado_doc) VALUES ( 'MARZO', '2024', NULL, NULL, 'ruta', 'Ninguno', NULL, '1', '1', '4', NULL, NULL);
+INSERT INTO doc_tributacion ( mes, año, ISR, IVA, ruta, detalle, fecha_registro, idinfo, idtipo, idtipo_documento, idempresa, idestado_doc) VALUES ( 'MARZO', '2024', NULL, NULL, 'ruta', 'Ninguno', NULL, '1', '2', '4', '1', NULL);
