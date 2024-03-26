@@ -222,6 +222,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
+                                            <th>N°</th>
                                             <th>Mes</th>
                                             <th>Detalle</th>
                                             <th>Estado</th>
@@ -229,13 +230,13 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php
+                                        <?php
                                         // select d.mes as dat1, d.isr as dat2, d.iva as dat3, d.ruta as dat4 
                                         // FROM doc_tributacion d, info i, tipo t, tipo_documento td, empresa e 
                                         // WHERE d.idinfo=1 AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idempresa=e.idempresa;
-                                        $ConsultaEmpresas = mysqli_query($con, "select d.fecha_registro as dat1, d.mes as dat2, d.detalle as dat3, d.ruta as dat4
+                                        $ConsultaEmpresas = mysqli_query($con, "select d.mes as dat1, d.detalle as dat2, d.idestado_doc as dat3, d.ruta as dat4
                                             FROM doc_tributacion d, info i, tipo t, tipo_documento td 
-                                            WHERE d.idinfo=$idinfo AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idtipo=2 AND d.idtipo_documento=4");
+                                            WHERE d.idinfo=$idinfo AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idtipo=2 AND d.idtipo_documento=3");
                                         $ContTabEmpresas2 = 1;
                                         while ($valorft = mysqli_fetch_array($ConsultaEmpresas)) {
                                             $servicioss = $valorft['dat1'];
@@ -243,7 +244,15 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                             <td class=\"text-nowrap\"><strong>" . $ContTabEmpresas2 . "</strong></td>
                                             <td class=\"text-nowrap\">" . $valorft['dat1'] . "</td>
                                             <td class=\"text-nowrap\">" . $valorft['dat2'] . "</td>
-                                            <td class=\"text-nowrap\">" . $valorft['dat3'] . "</td>
+                                            <td class=\"text-nowrap\">";
+                                            if ($valorft['dat3'] == 1) {
+                                                echo "<span class=\"badge bg-label-warning me-1\">Pendiente</span>";
+                                            } else {
+                                                if ($valorft['dat3'] == 2) {
+                                                    echo "<span class=\"badge bg-label-success me-1\">Completado</span>";
+                                                }
+                                            }
+                                            echo "</td>                                            
                                             <td>
                                                 <a type=\"button\" href=\"docs/" . $valorft['dat4'] . "\" class=\"btn btn-icon btn-outline-primary\">
                                                     <span class=\"tf-icons bx bxs-file-pdf\"></span>
@@ -254,39 +263,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                             $ContTabEmpresas2++;
                                         }
                                         ?>
-                                        <tr>
-                                            <td><strong>MES1</strong></td>
-                                            <td>Ninguna</td>
-                                            <td><span class="badge bg-label-success me-1">Completado</span></td>
-                                            <td>
-                                                <button type="button" class="btn btn-icon btn-outline-primary">
-                                                    <span class="tf-icons bx bxs-file-pdf"></span>
-                                                    <box-icon name='pie-chart-alt'></box-icon>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>MES1</strong></td>
-                                            <td>Ninguna</td>
-                                            <td><span class="badge bg-label-warning me-1">Pendiente</span></td>
-                                            <td>
-                                                <button type="button" class="btn btn-icon btn-outline-primary">
-                                                    <span class="tf-icons bx bxs-file-pdf"></span>
-                                                    <box-icon name='pie-chart-alt'></box-icon>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>MES1</strong></td>
-                                            <td>Ninguna</td>
-                                            <td><span class="badge bg-label-success me-1">Completado</span></td>
-                                            <td>
-                                                <button type="button" class="btn btn-icon btn-outline-primary">
-                                                    <span class="tf-icons bx bxs-file-pdf"></span>
-                                                    <box-icon name='pie-chart-alt'></box-icon>
-                                                </button>
-                                            </td>
-                                        </tr>
+
                                     </tbody>
                                     <tfoot class="table-border-bottom-0">
                                         <tr>
@@ -341,7 +318,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                             $ContTabEmpresas2++;
                                         }
                                         ?>
-                                        
+
                                     </tbody>
                                     <tfoot class="table-border-bottom-0">
                                         <tr>
@@ -360,24 +337,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
 
                     <!-- Footer -->
                     <footer class="content-footer footer bg-footer-theme">
-                        <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                            <div class="mb-2 mb-md-0">
-                                ©
-                                <script>
-                                    document.write(new Date().getFullYear());
-                                </script>
-                                , made with ❤️ by
-                                <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
-                            </div>
-                            <div>
-                                <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                                <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                                <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>
-
-                                <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank" class="footer-link me-4">Support</a>
-                            </div>
-                        </div>
+                        <?php include  "reciclables/footer.php"; ?>
                     </footer>
                     <!-- / Footer -->
 

@@ -73,7 +73,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
           $fechaInicio = $valorft['dat2'];
           $costo = $valorft['dat3'];
           $tipoPlan = $valorft['dat4'];
-          $idcliente=$valorft['dat5'];
+          $idcliente = $valorft['dat5'];
         }
         ?>
         <!-- Content wrapper -->
@@ -118,23 +118,23 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                         </tr>
                       </thead>
                       <tbody>
-                      <?php $ConsultaEmpresas = mysqli_query($con, "select e.dato as dat1, concat(p.apellido,' ',p.nombre) as dat2, p.telefono as dat3, a.detalle_horario as dat4 
+                        <?php $ConsultaEmpresas = mysqli_query($con, "select e.dato as dat1, concat(p.apellido,' ',p.nombre) as dat2, p.telefono as dat3, a.detalle_horario as dat4 
                           from persona p, cliente c, info i , asesor a, empresa e 
                           where c.idcliente=i.idcliente and c.idcliente=e.idcliente and i.idasesor=a.idasesor and a.idpersona=p.idpersona and c.idcliente=$idcliente ;");
-                          $ContTabEmpresas=1;
+                        $ContTabEmpresas = 1;
                         while ($valorft = mysqli_fetch_array($ConsultaEmpresas)) {
                           $servicioss = $valorft['dat1'];
                           echo "<tr>
-                          <td class=\"text-nowrap\">".$ContTabEmpresas."</td>
-                          <td class=\"text-nowrap\">".$valorft['dat1']."</td>
-                          <td class=\"text-nowrap\">".$valorft['dat2']."</td>
-                          <td>".$valorft['dat3']."</td>
-                          <td>".$valorft['dat4']."</td>
+                          <td class=\"text-nowrap\">" . $ContTabEmpresas . "</td>
+                          <td class=\"text-nowrap\">" . $valorft['dat1'] . "</td>
+                          <td class=\"text-nowrap\">" . $valorft['dat2'] . "</td>
+                          <td>" . $valorft['dat3'] . "</td>
+                          <td>" . $valorft['dat4'] . "</td>
                           
                         </tr>";
                         }
                         ?>
-                        
+
 
                       </tbody>
                     </table>
@@ -165,24 +165,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
 
           <!-- Footer -->
           <footer class="content-footer footer bg-footer-theme">
-            <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-              <div class="mb-2 mb-md-0">
-                ©
-                <script>
-                  document.write(new Date().getFullYear());
-                </script>
-                , made with ❤️ by
-                <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
-              </div>
-              <div>
-                <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>
-
-                <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank" class="footer-link me-4">Support</a>
-              </div>
-            </div>
+            <?php include  "reciclables/footer.php"; ?>
           </footer>
           <!-- / Footer -->
 

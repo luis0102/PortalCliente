@@ -2,7 +2,7 @@
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
   <div class="app-brand demo" style="background-color: #D0D3D4;">
-    <a href="index.html" class="app-brand-link gap-2">
+    <a href="home.php" class="app-brand-link gap-2">
       <span class="app-brand-logo demo">
         <img src="img/icons.png" height="60px" alt="Company Logo">
 
@@ -105,25 +105,7 @@
           </a>
         </li>
       </ul>
-    </li>
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-detail"></i>
-        <div data-i18n="Misc">Consultancy</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="pages-misc-error.html" class="menu-link">
-            <div data-i18n="Error">Mis pagos</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="pages-misc-under-maintenance.html" class="menu-link">
-            <div data-i18n="Under Maintenance">Persona Moral</div>
-          </a>
-        </li>
-      </ul>
-    </li>
+    </li>    
     <!-- Misc -->
     <li class="menu-header small text-uppercase"><span class="menu-header-text">Consultancy</span></li>
 
@@ -134,19 +116,19 @@
       </a>
       <ul class="menu-sub">
         <li class="menu-item">
-          <a href="pages-misc-error.html" class="menu-link">
+          <a href="MisPagos.php" class="menu-link">
             <div data-i18n="Error">Mis pagos</div>
           </a>
         </li>
         <li class="menu-item">
-          <a href="pages-misc-under-maintenance.html" class="menu-link">
+          <a href="documentacion.php" class="menu-link">
             <div data-i18n="Under Maintenance">Documentación</div>
           </a>
         </li>
       </ul>
     </li>
     <li class="menu-item">
-      <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank" class="menu-link">
+      <a href="MiSoporte.php" class="menu-link">
         <i class="menu-icon tf-icons bx bx-support"></i>
         <div data-i18n="Support">Soporte</div>
       </a>

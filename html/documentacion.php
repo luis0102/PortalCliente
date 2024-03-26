@@ -68,7 +68,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Información Tributaria /</span> Persona Física</h4>
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Consultancy /</span> Documentación</h4>
                         <?php
 
                         $titular = $_SESSION['nus_PORTALCONSULTANCY'];
@@ -85,48 +85,29 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                         ?>
                         <!-- Bootstrap Table with Header - Footer -->
                         <div class="card">
-                            <h5 class="card-header">Declaraciones SAT</h5>
+                            <h5 class="card-header">Documentación de Consultancy</h5>
                             <div class="table-responsive text-nowrap">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>N°</th>
-                                            <th>Mes</th>
-                                            <th>ISR*</th>
-                                            <th>IVA*</th>
-                                            <th>Total</th>
-                                            <th>Estado</th>
+                                            <th>Detalle</th>
                                             <th>Adjunto</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        // select d.mes as dat1, d.isr as dat2, d.iva as dat3, d.ruta as dat4 
-                                        // FROM doc_tributacion d, info i, tipo t, tipo_documento td, empresa e 
-                                        // WHERE d.idinfo=1 AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idempresa=e.idempresa;
-                                        $ConsultaEmpresas = mysqli_query($con, "select d.mes as dat1, d.isr as dat2, d.iva as dat3, d.isr+d.iva as dat4, d.idestado_doc as dat5, d.ruta as dat6 
-                                            FROM doc_tributacion d, info i, tipo t, tipo_documento td 
-                                            WHERE d.idinfo=$idinfo AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idtipo=1 AND d.idtipo_documento=1");
+                                        $ConsultaEmpresas = mysqli_query($con, "select ct.contrato as dat1, ct.detalle as dat2
+                                            FROM cliente c, contrato ct 
+                                            WHERE c.idcliente=ct.idcliente AND c.idcliente=$cliente ");
                                         $ContTabEmpresas1 = 1;
                                         while ($valorft = mysqli_fetch_array($ConsultaEmpresas)) {
                                             $servicioss = $valorft['dat1'];
                                             echo "<tr>
                                             <td class=\"text-nowrap\"><strong>" . $ContTabEmpresas1 . "</strong></td>
-                                            <td class=\"text-nowrap\">" . $valorft['dat1'] . "</td>
-                                            <td class=\"text-nowrap\">$ " . $valorft['dat2'] . "</td>
-                                            <td>$ " . $valorft['dat3'] . "</td>
-                                            <td>$ " . $valorft['dat4'] . "</td>
-                                            <td>";
-                                            if ($valorft['dat5'] == 1) {
-                                                echo "<span class=\"badge bg-label-warning me-1\">Pendiente</span>";
-                                            } else {
-                                                if ($valorft['dat5'] == 2) {
-                                                    echo "<span class=\"badge bg-label-success me-1\">Completado</span>";
-                                                }
-                                            }
-                                            echo "</td>
+                                            <td class=\"text-nowrap\">" . $valorft['dat2'] . "</td>
                                             <td>
-                                                <a type=\"button\" href=\"docs/" . $valorft['dat6'] . "\" class=\"btn btn-icon btn-outline-primary\">
+                                                <a type=\"button\" href=\"docs/" . $valorft['dat1'] . "\" class=\"btn btn-icon btn-outline-primary\">
                                                     <span class=\"tf-icons bx bxs-file-pdf\"></span>
                                                     <box-icon name='pie-chart-alt'></box-icon>
                                                 </a>
@@ -135,14 +116,12 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                             $ContTabEmpresas1++;
                                         }
                                         ?>
-
                                     </tbody>
                                     <tfoot class="table-border-bottom-0">
                                         <tr>
                                             <th></th>
+                                            <th>- </th>
                                             <th></th>
-                                            <th>Total</th>
-                                            <th>Total</th>
 
                                         </tr>
                                     </tfoot>
@@ -151,64 +130,43 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                         </div>
                         <hr class="my-5" />
                         <div class="card">
-                            <h5 class="card-header">Impuesto Cedular Arrendamiento</h5>
+                            <h5 class="card-header">Métodos de Pago</h5>
                             <div class="table-responsive text-nowrap">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th><strong>N°</strong></th>
-                                            <th>Mes</th>
-                                            <th>ISR*</th>
-                                            <th>IVA*</th>
-                                            <th>Total</th>
-                                            <th>Estado</th>
-                                            <th>Adjunto</th>
+                                            <th>Método</th>
+                                            <th>Enlace</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-                                        // select d.mes as dat1, d.isr as dat2, d.iva as dat3, d.ruta as dat4 
-                                        // FROM doc_tributacion d, info i, tipo t, tipo_documento td, empresa e 
-                                        // WHERE d.idinfo=1 AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idempresa=e.idempresa;
-                                        $ConsultaEmpresas = mysqli_query($con, "select d.mes as dat1, d.isr as dat2, d.iva as dat3, d.isr+d.iva as dat4, d.idestado_doc as dat5, d.ruta as dat6
-                                            FROM doc_tributacion d, info i, tipo t, tipo_documento td 
-                                            WHERE d.idinfo=$idinfo AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idtipo=1 AND d.idtipo_documento=2");
-                                        $ContTabEmpresas2 = 1;
-                                        while ($valorft = mysqli_fetch_array($ConsultaEmpresas)) {
-                                            $servicioss = $valorft['dat1'];
-                                            echo "<tr>
-                                            <td class=\"text-nowrap\"><strong>" . $ContTabEmpresas2 . "</strong></td>
-                                            <td class=\"text-nowrap\">" . $valorft['dat1'] . "</td>
-                                            <td class=\"text-nowrap\">$ " . $valorft['dat2'] . "</td>
-                                            <td>$ " . $valorft['dat3'] . "</td>
-                                            <td>$ " . $valorft['dat4'] . "</td>
-                                            <td>";
-                                            if ($valorft['dat5'] == 1) {
-                                                echo "<span class=\"badge bg-label-warning me-1\">Pendiente</span>";
-                                            } else {
-                                                if ($valorft['dat5'] == 2) {
-                                                    echo "<span class=\"badge bg-label-success me-1\">Completado</span>";
-                                                }
-                                            }
-                                            echo "</td>
+                                        <tr>
+                                            <td class="text-nowrap"><strong>1</strong></td>
+                                            <td class="text-nowrap">Mercado Pago</td>
+
                                             <td>
-                                                <a type=\"button\" href=\"docs/" . $valorft['dat6'] . "\" class=\"btn btn-icon btn-outline-primary\">
-                                                    <span class=\"tf-icons bx bxs-file-pdf\"></span>
+                                                <a type="button" href="docs/" class="btn btn-icon btn-outline-primary" target="_blank" rel="noopener noreferrer">
+                                                    <span class="tf-icons bx bx-link-external"></span>
                                                     <box-icon name='pie-chart-alt'></box-icon>
                                                 </a>
                                             </td>
-                                            </tr>";
-                                            $ContTabEmpresas2++;
-                                        }
-                                        ?>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-nowrap"><strong>2</strong></td>
+                                            <td class="text-nowrap">Paypal</td>
 
+                                            <td>
+                                                <a type="button" href="https://paypal.me/consultancysc" class="btn btn-icon btn-outline-primary" target="_blank" rel="noopener noreferrer">
+                                                    <span class="tf-icons bx bx-link-external"></span>
+                                                    <box-icon name='pie-chart-alt'></box-icon>
+                                                </a>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                     <tfoot class="table-border-bottom-0">
                                         <tr>
                                             <th></th>
-                                            <th></th>
-                                            <th>Total</th>
-                                            <th>Total</th>
 
                                         </tr>
                                     </tfoot>
@@ -286,16 +244,16 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
 
                         <hr class="my-5" />
                         <div class="card">
-                            <h5 class="card-header">Otros Documentos</h5>
+                            <h5 class="card-header">+ Información</h5>
                             <div class="table-responsive text-nowrap">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>N°</th>
-                                            <th>Fecha</th>
-                                            <th>Mes</th>
-                                            <th>Descripción</th>
-                                            <th>Adjunto</th>
+                                            <th>-</th>
+                                            <th>-</th>
+                                            <th>-</th>
+                                            <th>-</th>
+                                            <th>-</th>
                                         </tr>
                                     </thead>
                                     <tbody>
