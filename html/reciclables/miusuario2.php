@@ -113,7 +113,7 @@ while ($ArrayEmpresas_Home = mysqli_fetch_array($ConsultaDatoEmpresas)) {
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="auth-login-basic.html">
+                        <a class="dropdown-item" href="BD/cerrar_sesion.php">
                             <i class="bx bx-power-off me-2"></i>
                             <span class="align-middle">Cerrar Sesión</span>
                         </a>

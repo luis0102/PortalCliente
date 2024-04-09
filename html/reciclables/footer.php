@@ -22,6 +22,6 @@
                 <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-bitcoin"></i> Bitcoin</a>
             </div>
         </div> -->
-        <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger"><i class="bx bx-log-out-circle"></i> Cerrar Sesión</a>
+        <a href="BD/cerrar_sesion.php" class="btn btn-sm btn-outline-danger"><i class="bx bx-log-out-circle"></i> Cerrar Sesión</a>
     </div>
 </div>

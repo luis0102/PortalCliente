@@ -74,7 +74,7 @@ $sentenciaCliente->execute();
 
 // Insertar en la tabla "info"
 $consultaInfo = "INSERT INTO info(servicio, fecha_afiliacion, costo_plan, idtipo_plan, idasesor, idcliente) 
-                    SELECT  ? ,STR_TO_DATE(?, '%d-%m-%Y'),?,?,idasesor,? 
+                    SELECT  ? ,?,?,?,idasesor,? 
                     FROM asesor 
                     WHERE folio='$ClienteAsesor';";
 $sentenciaInfo = $con->prepare($consultaInfo);
