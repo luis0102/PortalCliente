@@ -83,7 +83,6 @@ function actualizarFoto() {
     var formData = new FormData();
     var upload = $("#upload")[0].files[0];
     let content = $("#mensajeCuenta");
-
     formData.append('upload', upload);
     $.ajax({
         method: "POST",
@@ -114,7 +113,6 @@ function actualizarFoto() {
                             if (data.trim() == "correctoFoto") {
                                 console.log(data);
                                 $("#EnviarFoto").val("");
-                                
                                 content.html('<div class="bs-toast toast toast-placement-ex m-2 fade bg-success bottom-0 end-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000"><div class="toast-header"><i class="bx bx-bell me-2"></i><div class="me-auto fw-semibold">Mensaje:</div><small>Hace 1 seg</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button></div><div class="toast-body">Fotografía actualizada correctamente.</div></div>');
                             } else {
                                 console.log(data);
@@ -178,6 +176,77 @@ function actualizarPassword() {
             }
 
 
+        }
+    });
+}
+
+function CrearNuevoCliente() {
+    var formData = new FormData();
+    var ClienteNombres = $("#ClienteNombres").val();
+    var ClienteApellidos = $("#ClienteApellidos").val();
+    var ClienteTelef = $("#ClienteTelef").val();
+    var ClientePlanServicio = $("#ClientePlanServicio").val();
+    var ClienteServicioContratado = $("#ClienteServicioContratado").val();
+    var ClienteFecha_af = $("#ClienteFecha_af").val();
+    var ClienteCosto = $("#ClienteCosto").val();
+    var ClienteAsesor = $("#ClienteAsesor").val();
+    var ClienteEmpresa = $("#ClienteEmpresa").val();
+    var ClienteContrato = $("#ClienteContrato")[0].files[0];
+    var ClienteDetalleContrato = $("#ClienteDetalleContrato").val();
+    var ClienteEmail = $("#ClienteEmail").val();
+    var ClientePassword = $("#ClientePassword").val();
+    let content = $("#mensajeCuenta");
+
+    formData.append('ClienteNombres', ClienteNombres);
+    formData.append('ClienteApellidos', ClienteApellidos);
+    formData.append('ClienteTelef', ClienteTelef);
+    formData.append('ClientePlanServicio', ClientePlanServicio);
+    formData.append('ClienteServicioContratado', ClienteServicioContratado);
+    formData.append('ClienteFecha_af', ClienteFecha_af);
+    formData.append('ClienteCosto', ClienteCosto);
+    formData.append('ClienteAsesor', ClienteAsesor);
+    formData.append('ClienteEmpresa', ClienteEmpresa);
+    formData.append('ClienteContrato', ClienteContrato);
+    formData.append('ClienteDetalleContrato', ClienteDetalleContrato);
+    formData.append('ClienteEmail', ClienteEmail);
+    formData.append('ClientePassword', ClientePassword);
+    $.ajax({
+        method: "POST",
+        url: "ajxcons/CrearNuevoCliente.php",
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: formData,
+        success: function (data) {
+            // console.log(data);
+            if (data.trim() == "void") {
+                //     window.location.href = "./";
+                console.log(data);
+                content.html('<div class="bs-toast toast toast-placement-ex m-2 fade bg-danger bottom-0 end-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000"><div class="toast-header"><i class="bx bx-bell me-2"></i><div class="me-auto fw-semibold">Error al intentar registrar un nuevo cliente</div><small>Hace 1 seg</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button></div><div class="toast-body">Hay campos obligatorios que han sido omitidos</div></div>');
+            } else {
+                if (data.trim() == "error") {
+                    console.log(data);
+                    content.html('<div class="bs-toast toast toast-placement-ex m-2 fade bg-danger bottom-0 end-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000"><div class="toast-header"><i class="bx bx-bell me-2"></i><div class="me-auto fw-semibold">Error al intentar actualizar fotografía</div><small>Hace 1 seg</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button></div><div class="toast-body">Hubo un error al intentar actualizar datos.</div></div>');
+                } else {
+                    if (data.trim() == "correcto") {
+                        console.log(data);
+                        content.html('<div class="bs-toast toast toast-placement-ex m-2 fade bg-success bottom-0 end-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000"><div class="toast-header"><i class="bx bx-bell me-2"></i><div class="me-auto fw-semibold">Mensaje:</div><small>Hace 1 seg</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button></div><div class="toast-body">Datos actualizados correctamente.</div></div>');
+                    } else {
+                        if (data.trim() == "errorfotoformato") {
+                            console.log(data);
+                            content.html('<div class="bs-toast toast toast-placement-ex m-2 fade bg-danger bottom-0 end-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000"><div class="toast-header"><i class="bx bx-bell me-2"></i><div class="me-auto fw-semibold">Error al intentar actualizar fotografía</div><small>Hace 1 seg</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button></div><div class="toast-body">El archivo tiene un formato no permitido.</div></div>');
+                        } else {
+                            if (data.trim() == "correctoFoto") {
+                                console.log(data);
+                                $("#EnviarFoto").val("");
+                                content.html('<div class="bs-toast toast toast-placement-ex m-2 fade bg-success bottom-0 end-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000"><div class="toast-header"><i class="bx bx-bell me-2"></i><div class="me-auto fw-semibold">Mensaje:</div><small>Hace 1 seg</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button></div><div class="toast-body">Fotografía actualizada correctamente.</div></div>');
+                            } else {
+                                console.log(data);
+                            }
+                        }
+                    }
+                }
+            }
         }
     });
 }

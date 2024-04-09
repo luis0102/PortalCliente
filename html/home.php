@@ -82,7 +82,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                           Estamos atentos a cuealquier duda, puedes contactarnos en la de <span class="fw-bold">Soporte</span> y demás medios detallados allí...
                         </p>
 
-                        <a href="javascript:;" class="btn btn-sm btn-outline-primary">Necesito ayuda</a>
+                        <a href="MiSoporte.php" class="btn btn-sm btn-outline-primary">Necesito ayuda</a>
                       </div>
                     </div>
                     <div class="col-sm-5 text-center text-sm-left">
@@ -169,7 +169,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                 <div class="card bg-primary text-white mb-4">
                   <div class="card-header">Servicio</div>
                   <div class="card-body">
-                    <h5 class="card-title text-white">Declaración Mensual</h5>
+                    <h5 class="card-title text-white"><?php echo $Hservicio ?></h5>
                     <p class="card-text">+ Detalles en Información Tributaria.</p>
                   </div>
                 </div>
@@ -178,7 +178,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                 <div class="card bg-secondary text-white mb-3">
                   <div class="card-header">Asesor(ra)</div>
                   <div class="card-body">
-                    <h5 class="card-title text-white">Magdalena Herndández G.</h5>
+                    <h5 class="card-title text-white"><?php echo $Hcliente ?></h5>
                     <p class="card-text">Contacto: .</p>
                   </div>
                 </div>
@@ -187,7 +187,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                 <div class="card bg-success text-white mb-3">
                   <div class="card-header">Plan</div>
                   <div class="card-body">
-                    <h5 class="card-title text-white">$ 600.00</h5>
+                    <h5 class="card-title text-white">$ <?php echo $Hcosto ?></h5>
                     <p class="card-text">Mensual.</p>
                   </div>
                 </div>
@@ -197,7 +197,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                   <div class="card-header">Atención</div>
                   <div class="card-body">
                     <h5 class="card-title text-white">Horario de oficina</h5>
-                    <p class="card-text">Lunes a Viernes 08:00 am a 18:00 pm.</p>
+                    <p class="card-text">Lunes a Viernes <?php echo $HHorario ?> (Hora México).</p>
                   </div>
                 </div>
               </div>

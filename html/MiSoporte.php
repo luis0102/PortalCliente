@@ -91,7 +91,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                     <thead>
                                         <tr>
                                             <th><strong>N°</strong></th>
-                                            <th>Método</th>
+                                            <th>Canal de Ayuda</th>
                                             <th>Enlace</th>
                                         </tr>
                                     </thead>

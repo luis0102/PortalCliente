@@ -16,3 +16,4 @@ INSERT INTO oc_tributacion ( mes, año, ISR, IVA, ruta, detalle, fecha_registro,
 INSERT INTO estado_p ( estado) VALUES ( 'pendiente'), ( 'completado'),( 'Con Mora');
 INSERT INTO pagos (monto, mes, anio, f_vencimiento, archivo, idestado_p, idcliente) VALUES ( '300', 'ENERO', '2024', '2024-01-31', 'ruta', '2', '1'), (NULL, '300', 'FEBRERO', '2024', '2024-01-31', 'ruta', '2', '1');
 INSERT INTO contrato ( contrato, detalle, idcliente) VALUES ('ruta', 'Ninguno', '1');
+INSERT INTO foto ( fotocol, idusuario) VALUES ('2_94_992_9661.jpeg', '2');

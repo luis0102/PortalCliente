@@ -88,7 +88,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                     <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Cuenta</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="datosEmpresariales.php"><i class="bx bx-bell me-1"></i> Información empresarial</a>
+                    <a class="nav-link" href="datosEmpresariales.php"><i class="bx bxs-business me-1"></i> Información empresarial</a>
                   </li>
                   <!-- <li class="nav-item">
                     <a class="nav-link" href="pages-account-settings-connections.html"><i class="bx bx-link-alt me-1"></i> Conexiones</a>

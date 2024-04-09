@@ -92,7 +92,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                     <a class="nav-link" href="cuenta.php"><i class="bx bx-user me-1"></i> Cuenta</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-bell me-1"></i> Información Empresarial</a>
+                    <a class="nav-link active" href="javascript:void(0);"><i class="bx bxs-business me-1"></i> Información Empresarial</a>
                   </li>
                   <!-- <li class="nav-item">
                     <a class="nav-link" href="pages-account-settings-connections.html"><i class="bx bx-link-alt me-1"></i> Connections</a>
@@ -201,5 +201,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
-
+<?php
+include  "reciclables/scripts2.php";
+?>
 </html>
