@@ -53,13 +53,14 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
     <div class="layout-container">
       <!-- Menu -->
 
-      <?php include  "reciclables/lateral2.php"; ?>
+      
       <!-- / Menu -->
 
       <!-- Layout container -->
       <div class="layout-page">
         <!-- Navbar -->
         <?php include  "reciclables/miusuario2.php"; ?>
+        <?php include  "reciclables/lateral2.php"; ?>
         <!-- / Navbar -->
         <?php
 

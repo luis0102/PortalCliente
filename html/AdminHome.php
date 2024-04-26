@@ -46,6 +46,11 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+    <style>
+        .modal-backdrop {
+            z-index: -1;
+        }
+    </style>
 </head>
 
 <body>
@@ -53,13 +58,13 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             <!-- Menu -->
-            <?php include  "reciclables/lateral2.php"; ?>
+            <?php include  "reciclables/lateralAdmin.php"; ?>
             <!-- / Menu -->
 
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
-                <?php include  "reciclables/miusuario2.php"; ?>
+                <?php include  "reciclables/miusuarioAdmin.php"; ?>
                 <!-- / Navbar -->
                 <?php
 
@@ -79,168 +84,22 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Admin /</span> Inicio</h4>
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Admin /</span> CLIENTES</h4>
 
                         <div class="row">
                             <div class="col-md-12">
                                 <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Cuenta</a>
+                                        <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Gestión de Clientes</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="datosEmpresariales.php"><i class="bx bx-bell me-1"></i> Información empresarial</a>
+                                        <a class="nav-link" href="AdminDocumentos.php"><i class="bx bxs-file-doc"></i> Gestión de Documentos</a>
                                     </li>
                                     <!-- <li class="nav-item">
                     <a class="nav-link" href="pages-account-settings-connections.html"><i class="bx bx-link-alt me-1"></i> Conexiones</a>
                   </li> -->
                                 </ul>
-                                <div class="card mb-4">
-                                    <h5 class="card-header">Detalles del Perfil</h5>
-                                    <!-- Account -->
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                            <img src="../assets/img/avatars/8.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
-                                            <div class="button-wrapper">
-                                                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                                    <span class="d-none d-sm-block">Cambiar imagen</span>
-                                                    <i class="bx bx-upload d-block d-sm-none"></i>
-                                                    <input type="file" id="upload" name="upload" class="account-file-input" hidden accept="image/png, image/jpeg" />
-                                                </label>
-                                                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                                                    <i class="bx bx-reset d-block d-sm-none"></i>
-                                                    <span class="d-none d-sm-block">Cancelar</span>
-                                                </button>
 
-                                                <p class="text-muted mb-0">Formatos permitidos: JPG, GIF or PNG. Tamaño máximo 500Kb</p>
-                                                <button type="button" id="EnviarFoto" name="EnviarFoto" class="btn rounded-pill btn-outline-primary">
-                                                    <span class="tf-icons bx bxs-send"></span>&nbsp; Guardar Foto
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr class="my-0" />
-                                    <div class="card-body">
-                                        <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                            <div class="row">
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="firstName" class="form-label">Nombres</label>
-                                                    <input class="form-control" type="text" id="firstName" name="firstName" value="<?php echo $nombre; ?>" autofocus />
-                                                </div>
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="lastName" class="form-label">Apellidos</label>
-                                                    <input class="form-control" type="text" name="lastName" id="lastName" value="<?php echo $apellido; ?>" />
-                                                </div>
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="email" class="form-label">Email</label>
-                                                    <input class="form-control" type="text" id="email" name="email" value="<?php echo $email; ?>" placeholder="correo@ejemplo.com" />
-                                                </div>
-
-                                                <div class="mb-3 col-md-6">
-                                                    <label class="form-label" for="phoneNumber">Telefono</label>
-                                                    <div class="input-group input-group-merge">
-                                                        <span class="input-group-text">MX (+52)</span>
-                                                        <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" value="<?php echo $telef; ?>" placeholder="<?php if ($telef == "") {
-                                                                                                                                                                                    echo "No tiene un número registrado";
-                                                                                                                                                                                } ?>" />
-                                                    </div>
-                                                </div>
-                                                <!-- <div class="mb-3 col-md-6">
-                          <label for="address" class="form-label">Dirección</label>
-                          <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
-                        </div> -->
-                                                <!-- <div class="mb-3 col-md-6">
-                          <label for="state" class="form-label">State</label>
-                          <input class="form-control" type="text" id="state" name="state" placeholder="California" />
-                        </div>
-                        <div class="mb-3 col-md-6">
-                          <label for="zipCode" class="form-label">Zip Code</label>
-                          <input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="231465" maxlength="6" />
-                        </div> -->
-                                                <!-- <div class="mb-3 col-md-6">
-                          <label class="form-label" for="country">Country</label>
-                          <select id="country" class="select2 form-select">
-                            <option value="">Select</option>
-                            <option value="Australia">Australia</option>
-                            <option value="Bangladesh">Bangladesh</option>
-                            <option value="Belarus">Belarus</option>
-                            <option value="Brazil">Brazil</option>
-                            <option value="Canada">Canada</option>
-                            <option value="China">China</option>
-                            <option value="France">France</option>
-                            <option value="Germany">Germany</option>
-                            <option value="India">India</option>
-                            <option value="Indonesia">Indonesia</option>
-                            <option value="Israel">Israel</option>
-                            <option value="Italy">Italy</option>
-                            <option value="Japan">Japan</option>
-                            <option value="Korea">Korea, Republic of</option>
-                            <option value="Mexico">Mexico</option>
-                            <option value="Philippines">Philippines</option>
-                            <option value="Russia">Russian Federation</option>
-                            <option value="South Africa">South Africa</option>
-                            <option value="Thailand">Thailand</option>
-                            <option value="Turkey">Turkey</option>
-                            <option value="Ukraine">Ukraine</option>
-                            <option value="United Arab Emirates">United Arab Emirates</option>
-                            <option value="United Kingdom">United Kingdom</option>
-                            <option value="United States">United States</option>
-                          </select>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                          <label for="language" class="form-label">Language</label>
-                          <select id="language" class="select2 form-select">
-                            <option value="">Select Language</option>
-                            <option value="en">English</option>
-                            <option value="fr">French</option>
-                            <option value="de">German</option>
-                            <option value="pt">Portuguese</option>
-                          </select>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                          <label for="timeZones" class="form-label">Timezone</label>
-                          <select id="timeZones" class="select2 form-select">
-                            <option value="">Select Timezone</option>
-                            <option value="-12">(GMT-12:00) International Date Line West</option>
-                            <option value="-11">(GMT-11:00) Midway Island, Samoa</option>
-                            <option value="-10">(GMT-10:00) Hawaii</option>
-                            <option value="-9">(GMT-09:00) Alaska</option>
-                            <option value="-8">(GMT-08:00) Pacific Time (US & Canada)</option>
-                            <option value="-8">(GMT-08:00) Tijuana, Baja California</option>
-                            <option value="-7">(GMT-07:00) Arizona</option>
-                            <option value="-7">(GMT-07:00) Chihuahua, La Paz, Mazatlan</option>
-                            <option value="-7">(GMT-07:00) Mountain Time (US & Canada)</option>
-                            <option value="-6">(GMT-06:00) Central America</option>
-                            <option value="-6">(GMT-06:00) Central Time (US & Canada)</option>
-                            <option value="-6">(GMT-06:00) Guadalajara, Mexico City, Monterrey</option>
-                            <option value="-6">(GMT-06:00) Saskatchewan</option>
-                            <option value="-5">(GMT-05:00) Bogota, Lima, Quito, Rio Branco</option>
-                            <option value="-5">(GMT-05:00) Eastern Time (US & Canada)</option>
-                            <option value="-5">(GMT-05:00) Indiana (East)</option>
-                            <option value="-4">(GMT-04:00) Atlantic Time (Canada)</option>
-                            <option value="-4">(GMT-04:00) Caracas, La Paz</option>
-                          </select>
-                        </div> -->
-                                                <!-- <div class="mb-3 col-md-6">
-                          <label for="currency" class="form-label">Currency</label>
-                          <select id="currency" class="select2 form-select">
-                            <option value="">Select Currency</option>
-                            <option value="usd">USD</option>
-                            <option value="euro">Euro</option>
-                            <option value="pound">Pound</option>
-                            <option value="bitcoin">Bitcoin</option>
-                          </select>
-                        </div> -->
-                                            </div>
-                                            <div class="mt-2">
-                                                <button type="submit" id="guardarcambio" name="guardarcambio" class="btn btn-primary me-2">Guardar cambios</button>
-                                                <button type="reset" class="btn btn-outline-secondary">Cancelar</button>
-                                            </div>
-                                        </form>
-                                        <div id="mensajeCuenta">
-                                        </div>
-                                    </div>
-                                    <!-- /Account -->
-                                </div>
                                 <div class="nav-align-top mb-4">
                                     <ul class="nav nav-tabs nav-fill" role="tablist">
                                         <li class="nav-item">
@@ -256,19 +115,24 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                         </li>
                                         <li class="nav-item">
                                             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-nuevo-documento" aria-controls="navs-nuevo-documento" aria-selected="false">
-                                                <i class="tf-icons bx bx-user"></i> Añadir Nuevo Documento
+                                                <i class="tf-icons bx bx-buildings"></i> Añadir Nueva Empresa
+                                            </button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-nuevo-admin-usuarios" aria-controls="navs-nuevo-admin-usuarios" aria-selected="false">
+                                                <i class="tf-icons bx bx-user-circle"></i> Administración de Usuarios
                                             </button>
                                         </li>
                                         <li class="nav-item">
                                             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-messages" aria-controls="navs-justified-messages" aria-selected="false">
-                                                <i class="tf-icons bx bx-message-square"></i> Messages
+                                                <i class="tf-icons bx bx-message-square"></i> Mensajes
                                             </button>
                                         </li>
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane fade active show" id="navs-justified-home" role="tabpanel">
                                             <p>
-                                                Inicio
+                                                Bienvenido
                                             </p>
 
                                         </div>
@@ -278,7 +142,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                                 <small class="text-muted float-end">Merged input group</small>
                                             </div>
                                             <div class="card-body">
-                                                <form>
+                                                <form id="FormNuevoCliente" method="POST">
                                                     <div class="row mb-3">
                                                         <label class="col-sm-2 col-form-label" for="ClienteNombres">Nombres <strong>(*)</strong></label>
                                                         <div class="col-sm-10">
@@ -321,12 +185,12 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
-                                                        <label class="col-sm-2 form-label" for="ClienteServicioContratado">Servicio Contratado</label>
+                                                        <label class="col-sm-2 form-label" for="ClienteServicioContratado">Servicio Contratado (*)</label>
                                                         <div class="col-sm-10">
                                                             <div class="input-group input-group-merge">
                                                                 <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bxs-business"></i></span>
                                                                 <input type="text" id="ClienteServicioContratado" name="ClienteServicioContratado" class="form-control phone-mask" placeholder="Ingrese servicio " aria-label="658 799 8941" aria-describedby="basic-icon-default-phone2">
-                                                                
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -348,14 +212,63 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                                     <div class="row mb-3">
                                                         <label class="col-sm-2 col-form-label" for="ClienteAsesor">Asesor <strong>(*)</strong></label>
                                                         <div class="col-sm-10">
-                                                            <div class="input-group input-group-merge">
+                                                            <div class="input-group input-group-merge" data-bs-toggle="modal" data-bs-target="#modalBAsesor">
                                                                 <span id="basic-icon-default-company2" class="input-group-text"><i class="bx bxs-user"></i></span>
-                                                                <input type="text" id="ClienteAsesor" name="ClienteAsesor" class="form-control" placeholder="Ingrese folio del asesor" aria-label="Ingrese folio del asesor" aria-describedby="basic-icon-default-company2">
+                                                                <input type="text" id="ClienteAsesor" name="ClienteAsesor" style="cursor: pointer;" class="form-control" placeholder="Seleccione Asesor" aria-label="Seleccione Asesor" aria-describedby="basic-icon-default-company2">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="mt-3">
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="modalBAsesor" tabindex="-1" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="modalCenterTitle">Buscar Asesor</h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="mb-3 row">
+                                                                                <label for="html5-search-input" class="col-md-2 col-form-label">Ingrese nombre</label>
+                                                                                <div class="col-md-10">
+                                                                                    <input class="form-control" type="search" placeholder="Buscar Asesor ..." id="ModalBuscarAsesor" />
+                                                                                    <input id="identificadorAsesor" type="" class="input-group-text" readonly>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row g-2">
+                                                                                <div class="card">
+                                                                                    <h5 class="card-header">Seleccione el Asesor: </h5>
+                                                                                    <div class="table-responsive text-nowrap">
+                                                                                        <table class="table table-hover">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>N°</th>
+                                                                                                    <th>Folio</th>
+                                                                                                    <th>Asesor</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody id="tablaAsesores" class="table-border-bottom-0">
+
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                                                Cerrar
+                                                                            </button> -->
+                                                                            <!-- <button type="button" class="btn btn-primary">Listo</button> -->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
-                                                        <label class="col-sm-2 col-form-label" for="ClienteContrato">Agregar Contrato</label>
+                                                        <label class="col-sm-2 col-form-label" for="ClienteContrato">Agregar Contrato (*)</label>
                                                         <div class="col-sm-10">
                                                             <div class="input-group">
                                                                 <input type="file" class="form-control" id="ClienteContrato" name="ClienteContrato">
@@ -422,6 +335,241 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                                     </div>
 
                                                 </form>
+
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="navs-nuevo-documento" role="tabpanel">
+                                            <div class="card-header d-flex align-items-center justify-content-between">
+                                                <h5 class="mb-0">Añadir Nueva Empresa</h5>
+                                                <small class="text-muted float-end">Merged input group</small>
+                                            </div>
+                                            <div class="card-body">
+                                                <form id="FormNuevaEmpresa" method="POST">
+
+                                                    <div id="CajaEmpresaNCliente" class="row mb-3">
+                                                        <label class="col-sm-2 col-form-label" for="EmpresaNCliente">Cliente <strong>(*)</strong></label>
+                                                        <div class="col-sm-10" style="cursor: pointer;">
+                                                            <div class="input-group input-group-merge" data-bs-toggle="modal" data-bs-target="#modalBCliente">
+                                                                <input type="text" class="form-control" style="cursor: pointer;" id="EmpresaNCliente" placeholder="Seleccionar Cliente" aria-label="Seleccionar Cliente" aria-describedby="basic-icon-default-fullname2" readonly>
+                                                                <span class="input-group-text"><i class="bx bx-search"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="mt-3">
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="modalBCliente" tabindex="-1" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="modalCenterTitle">Buscar Cliente</h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="mb-3 row">
+                                                                                <label for="html5-search-input" class="col-md-2 col-form-label">Ingrese CURP</label>
+                                                                                <div class="col-md-10">
+                                                                                    <input class="form-control" type="search" placeholder="Buscar Cliente ..." id="ModalBuscarCliente" />
+                                                                                    <input id="identificadorCliente" type="" class="input-group-text" readonly>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row g-2">
+                                                                                <div class="card">
+                                                                                    <h5 class="card-header">Seleccione el Cliente: </h5>
+                                                                                    <div class="table-responsive text-nowrap">
+                                                                                        <table class="table table-hover">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>N°</th>
+                                                                                                    <th>Cliente</th>
+                                                                                                    <th># de CRUP</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody id="tablaClientes" class="table-border-bottom-0">
+
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                                                Cerrar
+                                                                            </button> -->
+                                                                            <!-- <button type="button" class="btn btn-primary">Listo</button> -->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="CajaNuevaNEmpresa" class="row mb-3">
+                                                        <label class="col-sm-2 col-form-label" for="NuevaNEmpresa">Empresa <strong>(*)</strong></label>
+                                                        <div class="col-sm-10">
+                                                            <div class="input-group input-group-merge">
+                                                                <input type="text" class="form-control" id="NuevaNEmpresa" placeholder="Ingrese nombre de la empresa" aria-label="Ingrese nombre de la empresa" aria-describedby="basic-icon-default-fullname2">
+                                                                <span class="input-group-text"><i class="bx bxs-business"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="CajaEmpresaCosto" class="row mb-3">
+                                                        <label class="col-sm-2 col-form-label" for="EmpresaCosto">Costo del plan (*)</label>
+                                                        <div class="col-sm-10">
+                                                            <div class="input-group input-group-merge">
+                                                                <span class="input-group-text"><i class="bx bx-dollar-circle"></i></span>
+                                                                <input type="text" class="form-control" id="EmpresaCosto" name="EmpresaCosto" placeholder="Ingrese nuevo costo o confirme el costo de plan" aria-label="Ingrese nuevo costo o confirme el costo de plan" aria-describedby="IconDocumentoISR2">
+                                                                <span class="input-group-text">Costo del actual plan</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label class="col-sm-2 col-form-label" for="EmpresaArchivoContrato">Archivo <strong>(*)</strong></label>
+                                                        <div class="col-sm-10">
+                                                            <div class="input-group ">
+                                                                <input type="file" class="form-control" id="EmpresaArchivoContrato" name="EmpresaArchivoContrato">
+                                                                <label class="input-group-text" for="EmpresaArchivoContrato">Seleccione archivo</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label class="col-sm-2 col-form-label" for="EmpresaDetalle">Detalle <strong>(*)</strong></label>
+                                                        <div class="col-sm-10">
+                                                            <div class="input-group input-group-merge">
+                                                                <span id="basic-icon-default-message2" class="input-group-text"><i class="bx bx-detail"></i></span>
+                                                                <textarea id="EmpresaDetalle" name="EmpresaDetalle" class="form-control" placeholder="Escriba alguna descripción si es el caso" aria-label="Hi, Do you have a moment to talk Joe?" aria-describedby="basic-icon-default-message2"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr class="m-0">
+                                                    <hr class="m-0">
+                                                    <div class="mb-3 col-12 mb-0">
+                                                        <div class="alert alert-warning">
+                                                            <h6 class="alert-heading fw-bold mb-1">Alerta</h6>
+                                                            <p class="mb-0">Los campos con <strong>(*)</strong> son obligatorios.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row justify-content-end">
+                                                        <div class="col-sm-10">
+                                                            <button type="submit" id="BTNCompletarRegistronNuevaEmpresa" class="btn btn-primary">Completar Registro</button>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="navs-nuevo-admin-usuarios" role="tabpanel">
+                                            <div class="card-header d-flex align-items-center justify-content-between">
+                                                <h5 class="mb-0">Alta / Baja de Usuarios</h5>
+                                                <small class="text-muted float-end">Merged input group</small>
+                                            </div>
+                                            <div class="card-body">
+                                                <form id="FormAltaBajaUsuarios" method="POST">
+                                                    <div id="CajaUsuarioNCliente" class="row mb-3">
+                                                        <label class="col-sm-2 col-form-label" for="UsuarioNCliente">Cliente <strong>(*)</strong></label>
+                                                        <div class="col-sm-10" style="cursor: pointer;">
+                                                            <div class="input-group input-group-merge" data-bs-toggle="modal" data-bs-target="#modalBCliente2">
+                                                                <input type="text" class="form-control" style="cursor: pointer;" id="UsuarioNCliente2" placeholder="Seleccionar Cliente" aria-label="Seleccionar Cliente" aria-describedby="basic-icon-default-fullname2" readonly>
+                                                                <span class="input-group-text"><i class="bx bx-search"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="mt-3">
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="modalBCliente2" tabindex="-1" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="modalCenterTitle">Buscar Cliente</h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="mb-3 row">
+                                                                                <label for="html5-search-input" class="col-md-2 col-form-label">Ingrese CURP</label>
+                                                                                <div class="col-md-10">
+                                                                                    <input class="form-control" type="search" placeholder="Buscar Cliente ..." id="ModalBuscarCliente2" />
+                                                                                    <input id="identificadorCliente2" type="" class="input-group-text" readonly>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row g-2">
+                                                                                <div class="card">
+                                                                                    <h5 class="card-header">Seleccione el Cliente: </h5>
+                                                                                    <div class="table-responsive text-nowrap">
+                                                                                        <table class="table table-hover">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>N°</th>
+                                                                                                    <th>Cliente</th>
+                                                                                                    <th># de CRUP</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody id="tablaClientes2" class="table-border-bottom-0">
+
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                                                Cerrar
+                                                                            </button> -->
+                                                                            <!-- <button type="button" class="btn btn-primary">Listo</button> -->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label for="UsuarioEstado" class="col-sm-2 form-label">ESTADO <strong>(*)</strong></label>
+                                                        <div class="col-sm-10">
+                                                            <div class="input-group input-group-merge">
+                                                                <select id="UsuarioEstado" name="UsuarioEstado" onchange="" class="form-select">
+                                                                    <option value="0">Seleccione ESTADO</option>
+                                                                    <option value="1">ACTIVO</option>
+                                                                    <option value="2">INACTIVO</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div id="CajaNuevaNEmpresa2" class="row mb-3">
+                                                        <label class="col-sm-2 col-form-label" for="NuevaNEmpresa2">Empresa <strong>(*)</strong></label>
+                                                        <div class="col-sm-10">
+                                                            <div class="input-group input-group-merge">
+                                                                <input type="text" class="form-control" id="NuevaNEmpresa2" placeholder="Ingrese nombre de la empresa" aria-label="Ingrese nombre de la empresa" aria-describedby="basic-icon-default-fullname2">
+                                                                <span class="input-group-text"><i class="bx bxs-business"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row mb-3">
+                                                        <label class="col-sm-2 col-form-label" for="UsuariosDetalle">Detalle <strong>(*)</strong></label>
+                                                        <div class="col-sm-10">
+                                                            <div class="input-group input-group-merge">
+                                                                <span id="basic-icon-default-message2" class="input-group-text"><i class="bx bx-detail"></i></span>
+                                                                <textarea id="UsuariosDetalle" name="UsuariosDetalle" class="form-control" placeholder="Escriba alguna descripción si es el caso" aria-label="Hi, Do you have a moment to talk Joe?" aria-describedby="basic-icon-default-message2"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                    <hr class="m-0">
+                                                    <hr class="m-0">
+                                                    <div class="mb-3 col-12 mb-0">
+                                                        <div class="alert alert-warning">
+                                                            <h6 class="alert-heading fw-bold mb-1">Alerta</h6>
+                                                            <p class="mb-0">Los campos con <strong>(*)</strong> son obligatorios.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row justify-content-end">
+                                                        <div class="col-sm-10">
+                                                            <button type="submit" id="BTNCompletarRegistroAltaBaja" class="btn btn-primary">Guardar Cambios</button>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="navs-justified-messages" role="tabpanel">
@@ -437,41 +585,13 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
-                                    <h5 class="card-header">Actualizar Contraseña</h5>
-                                    <div class="card-body">
-                                        <div class="mb-3 col-12 mb-0">
-                                            <div class="alert alert-warning">
-                                                <h6 class="alert-heading fw-bold mb-1">Éstá seguro(a) de realizar éste cambio?</h6>
-                                                <p class="mb-0">Recuerde que su correo electrónico seguirá siendo el mismo.</p>
-                                            </div>
-                                        </div>
-                                        <form id="formAccountDeactivation" onsubmit="return false">
-                                            <div class="mb-3 col-md-6">
-                                                <label for="clave_actual" class="form-label">Contraseña actual</label>
-                                                <input type="password" class="form-control" id="clave_actual" name="clave_actual" placeholder="***" />
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label for="clave" class="form-label">Contraseña</label>
-                                                <input type="password" class="form-control" id="clave" name="clave" placeholder="***" />
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label for="clave2" class="form-label">Confirmar Contraseña</label>
-                                                <input type="password" class="form-control" id="clave2" name="clave2" placeholder="***" />
-                                            </div>
-                                            <div class="form-check mb-3">
-                                                <input class="form-check-input" type="checkbox" name="accountActivation" id="accountActivation" />
-                                                <label class="form-check-label" for="accountActivation">Estoy de acuerdo</label>
-                                            </div>
-                                            <button type="submit" id="UpdatePassword" name="UpdatePassword" class="btn btn-danger deactivate-account">Cambiar contraseña</button>
-                                        </form>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
-                    <!-- / Content -->
-
+                    <!-- / Cartel de alerta general -->
+                    <div id="mensajeCuenta">
+                    </div>
                     <!-- Footer -->
                     <footer class="content-footer footer bg-footer-theme">
                         <?php include  "reciclables/footer.php"; ?>
@@ -507,21 +627,40 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
 
     <!-- Page JS -->
     <script src="../assets/js/pages-account-settings-account.js"></script>
-
+    <!-- <script src="../assets/js/ui-modals.js"></script> -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="jvscons/funcionesjs.js"></script>
+    <script src="jvscons/funcionesjsAdmin.js"></script>
     <script type="text/javascript">
+        buscarCliente();
+        buscarCliente2Prueba();
+        
+        document.getElementById("ModalBuscarAsesor").addEventListener("keyup", buscarAsesor)
+        document.getElementById("ModalBuscarCliente").addEventListener("keyup", buscarCliente)
+        document.getElementById("ModalBuscarCliente2").addEventListener("keyup", buscarCliente2Prueba)
         $(document).ready(function() {
             $("#BTNCompletarRegistroCliente").on('click', function(e) {
                 e.preventDefault();
                 CrearNuevoCliente();
             });
         });
+        $(document).ready(function() {
+            $("#BTNCompletarRegistronNuevaEmpresa").on('click', function(e) {
+                e.preventDefault();
+                CrearNuevaEmpresa();
+            });
+        });
+        $(document).ready(function() {
+            $("#BTNCompletarRegistroAltaBaja").on('click', function(e) {
+                e.preventDefault();
+                CambiarEstadoUsuario();
+            });
+        });
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#guardarcambio").on('click', function(e) {
+            $("#b").on('click', function(e) {
                 e.preventDefault();
                 actualizarUsuario();
             });
@@ -535,7 +674,65 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
             });
         });
     </script>
-    <script src="jvscons/funcionesjs.js"></script>
+    <script>
+        function selectorTipoPersona() {
+            let DocumentoTipoPersona = document.getElementById('DocumentoTipoPersona');
+            let OpcionDocumentoTipoPersona = DocumentoTipoPersona.value;
+            if (OpcionDocumentoTipoPersona == 1) {
+                document.getElementById('CajaDocumentoNEmpresa').style.display = 'none';
+            } else {
+                if (OpcionDocumentoTipoPersona == 2) {
+                    // campo de empresa
+                    document.getElementById('CajaDocumentoNEmpresa').style.display = '';
+                } else {
+
+                }
+            }
+        }
+
+        function selectorTipoDocumento() {
+            let DocumentoTipoDocumento = document.getElementById('DocumentoTipoDocumento');
+            let OpcionDocumentoTipoDocumento = DocumentoTipoDocumento.value;
+            if (OpcionDocumentoTipoDocumento == 1 || OpcionDocumentoTipoDocumento == 2) {
+                document.getElementById('CajaDocumentoEstado').style.display = '';
+                document.getElementById('CajaDocumentoAnio').style.display = '';
+                document.getElementById('CajaDocumentoISR').style.display = '';
+                document.getElementById('CajaDocumentoIVA').style.display = '';
+
+            } else {
+                if (OpcionDocumentoTipoDocumento == 3) {
+
+                    document.getElementById('CajaDocumentoISR').style.display = 'none';
+                    document.getElementById('CajaDocumentoIVA').style.display = 'none';
+
+                } else {
+                    if (OpcionDocumentoTipoDocumento == 4) {
+                        document.getElementById('CajaDocumentoEstado').style.display = 'none';
+
+
+                        document.getElementById('CajaDocumentoISR').style.display = 'none';
+                        document.getElementById('CajaDocumentoIVA').style.display = 'none';
+
+                    } else {}
+                }
+            }
+        }
+    </script>
+    <script>
+        // pasar id
+        $(document).on("click", "#SelectClienteDocumento", function() {
+            var id = $(this).data("id");
+            var valor = $(this).data("valor-nombre");
+
+            // document.getElementById("DocumentoNCliente").setAttribute("value", id);
+            document.getElementById("EmpresaNCliente").setAttribute("value", valor);
+            document.getElementById("identificadorCliente").setAttribute("value", id);
+            document.getElementById("UsuarioNCliente2").setAttribute("value", valor);
+            document.getElementById("identificadorCliente2").setAttribute("value", id);
+
+        })
+    </script>
+
     <?php
     include  "reciclables/scripts2.php";
     ?>

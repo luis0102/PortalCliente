@@ -55,7 +55,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
     <div class="layout-container">
       <!-- Menu -->
 
-      <?php include  "reciclables/lateral2.php"; ?>
+      
       <!-- / Menu -->
 
       <!-- Layout container -->
@@ -63,7 +63,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
         <!-- Navbar -->
 
         <?php include  "reciclables/miusuario2.php"; ?>
-
+        <?php include  "reciclables/lateral2.php"; ?>
         <!-- / Navbar -->
 
         <!-- Content wrapper -->

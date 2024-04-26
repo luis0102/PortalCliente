@@ -443,8 +443,8 @@ try {
     $mail->isSMTP();
     $mail->Host = 'mail.consultancysc.com';
     $mail->SMTPAuth = true;
-    $mail->Username = '------@consultancysc.com';
-    $mail->Password = '------';
+    $mail->Username = '@consultancysc.com';
+    $mail->Password = '';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
 

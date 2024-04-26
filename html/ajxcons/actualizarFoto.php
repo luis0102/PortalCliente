@@ -12,7 +12,7 @@ $html = '';
 if ($upload == "") {
     echo "void";
 } else {
-    
+
     $obtenerIDPersona = mysqli_query($con, "select u.idusuario as dat1, p.idpersona as dat2, fotocol as dat3 
     from usuario u, persona p, foto f
     where u.idusuario=p.idusuario and u.email='$titular' and u.idusuario=f.idusuario");
@@ -33,7 +33,7 @@ if ($upload == "") {
             if (in_array($extension, $admitidos)) {
                 if (move_uploaded_file($direccionTemporalUpload, "../fotosPerfil/$nombreEncriptado$extension")) {
                     echo "correctoFoto";
-                    unlink("../fotosPerfil/".$fotoActual); 
+                    unlink("../fotosPerfil/" . $fotoActual);
                 } else {
                     echo "Ocurrió un error";
                 }
@@ -44,5 +44,4 @@ if ($upload == "") {
             echo "errorfoto";
         }
     }
-
 }

@@ -21,13 +21,9 @@ $ClienteEmail = isset($_POST['ClienteEmail']) ? $_POST['ClienteEmail'] : '';
 $ClientePassword = isset($_POST['ClientePassword']) ? $_POST['ClientePassword'] : '';
 //   echo "$ClienteNombres | $ClienteApellidos | $ClienteTelef | $ClientePlanServicio | $ClienteFecha_af | $ClienteCosto | $ClienteAsesor | $ClienteEmpresa | $NombreActualDocumento | $NombreTemporalDocumento| $ClienteDetalleContrato | $ClienteEmail | $ClientePassword | ";
 //    echo "$ClienteNombres | $ClienteApellidos | $ClientePlanServicio | $ClienteServicioContratado | $ClienteFecha_af | $ClienteCosto | $ClienteAsesor | $NombreActualDocumento | $NombreTemporalDocumento | $ClienteEmail | $ClientePassword |";
-if ($ClienteNombres == '' || $ClienteApellidos == '' || $ClientePlanServicio == 0 || $ClienteServicioContratado=='' || $ClienteFecha_af == '' || $ClienteCosto == '' || $ClienteAsesor == '' || $NombreActualDocumento == '' || $NombreTemporalDocumento == '' || $ClienteEmail == '' || $ClientePassword == '') {
+if ($ClienteNombres == '' || $ClienteApellidos == '' || $ClientePlanServicio == 0 || $ClienteServicioContratado == '' || $ClienteFecha_af == '' || $ClienteCosto == '' || $ClienteAsesor == '' || $NombreActualDocumento == '' || $NombreTemporalDocumento == '' || $ClienteEmail == '' || $ClientePassword == '') {
     echo "void";
 } else {
-    $AddConsulta = "";
-    if ($ClienteEmpresa <> '' || $ClienteDetalleContrato<>'') {
-        $AddConsulta = " INSERT INTO empresa (dato, idcliente) VALUES ('$ClienteEmpresa', @idcliente);";
-    }
 
     // $insert1 = "INSERT INTO usuario ( email, psw, idestadou) VALUES ('', '', '')";
     // $insert2 = "INSERT INTO foto (fotocol, idusuario) VALUES ('', ) ";
@@ -36,65 +32,78 @@ if ($ClienteNombres == '' || $ClienteApellidos == '' || $ClientePlanServicio == 
     // $insert5 = "INSERT INTO info (servicio, fecha_afiliacion, costo_plan, idtipo_plan, idasesor, idcliente) VALUES ()";
     // $insert6 = "INSERT INTO contrato (contrato, detalle, idcliente) VALUES ()";
     // $insert7 = "";
-    $NombreEncriptadoDoc=date('Y-m-d').'_'.rand(1, 10) . '_' . rand(11, 100) . '_' . rand(101, 1000) . '_' . rand(1001, 10000);
-             
+    $NombreEncriptadoDoc = date('Y-m-d') . '_' . rand(1, 10) . '_' . rand(11, 100) . '_' . rand(101, 1000) . '_' . rand(1001, 10000);
 
-$con->begin_transaction();
 
-// Insertar en la tabla "usuario"
-$consultaUsuario = "INSERT INTO usuario (email, psw, idestadou) VALUES (?, ?, 1)";
-$sentenciaUsuario = $con->prepare($consultaUsuario);
-$sentenciaUsuario->bind_param("ss", $ClienteEmail, $ClientePassword);
+    $con->begin_transaction();
 
-$sentenciaUsuario->execute();
+    // Insertar en la tabla "usuario"
+    $consultaUsuario = "INSERT INTO usuario (email, psw, idestadou) VALUES (?, ?, 1)";
+    $sentenciaUsuario = $con->prepare($consultaUsuario);
+    $sentenciaUsuario->bind_param("ss", $ClienteEmail, $ClientePassword);
+    $sentenciaUsuario->execute();
+    $filasUsuario = $sentenciaUsuario->affected_rows;
 
-// Insertar en la tabla "foto"
-$consultaFoto = "INSERT INTO foto (fotocol, idusuario) VALUES (?, ?)";
-$sentenciaFoto = $con->prepare($consultaFoto);
-$sentenciaFoto->bind_param("si", $fotocol, $idUsuario);
+    // Insertar en la tabla "foto"
+    $consultaFoto = "INSERT INTO foto (fotocol, idusuario) VALUES (?, ?)";
+    $sentenciaFoto = $con->prepare($consultaFoto);
+    $sentenciaFoto->bind_param("si", $fotocol, $idUsuario);
 
-$fotocol = ""; // Base64 de la imagen
-$idUsuario = $sentenciaUsuario->insert_id; // Obtener ID generado en "usuario"
+    $fotocol = ""; // Base64 de la imagen
+    $idUsuario = $sentenciaUsuario->insert_id; // Obtener ID generado en "usuario"
+    $sentenciaFoto->execute();
+    $filasFoto = $sentenciaFoto->affected_rows;
 
-$sentenciaFoto->execute();
+    // Insertar en la tabla "persona"
+    $consultaPersona = "INSERT INTO persona (nombre, apellido, telefono, idusuario) VALUES (?, ?, ?, ?)";
+    $sentenciaPersona = $con->prepare($consultaPersona);
+    $sentenciaPersona->bind_param("sssi", $ClienteNombres, $ClienteApellidos, $ClienteTelef, $idUsuario);
+    $sentenciaPersona->execute();
+    $filasPersona = $sentenciaPersona->affected_rows;
 
-// Insertar en la tabla "persona"
-$consultaPersona = "INSERT INTO persona (nombre, apellido, telefono, idusuario) VALUES (?, ?, ?, ?)";
-$sentenciaPersona = $con->prepare($consultaPersona);
-$sentenciaPersona->bind_param("sssi", $ClienteNombres, $ClienteApellidos, $ClienteTelef, $idUsuario);
+    // Insertar en la tabla "cliente"
+    $consultaCliente = "INSERT INTO cliente(idpersona) VALUES(?)";
+    $sentenciaCliente = $con->prepare($consultaCliente);
+    $sentenciaCliente->bind_param("i", $idPersona);
+    $idPersona = $sentenciaPersona->insert_id;
+    $sentenciaCliente->execute();
+    $filasCliente = $sentenciaCliente->affected_rows;
 
-$sentenciaPersona->execute();
-
-// Insertar en la tabla "cliente"
-$consultaCliente = "INSERT INTO cliente(idpersona) VALUES(?)";
-$sentenciaCliente = $con->prepare($consultaCliente);
-$sentenciaCliente->bind_param("i", $idPersona);
-$idPersona = $sentenciaPersona->insert_id;
-$sentenciaCliente->execute();
-
-// Insertar en la tabla "info"
-$consultaInfo = "INSERT INTO info(servicio, fecha_afiliacion, costo_plan, idtipo_plan, idasesor, idcliente) 
+    // Insertar en la tabla "info"
+    $consultaInfo = "INSERT INTO info(servicio, fecha_afiliacion, costo_plan, idtipo_plan, idasesor, idcliente) 
                     SELECT  ? ,?,?,?,idasesor,? 
                     FROM asesor 
                     WHERE folio='$ClienteAsesor';";
-$sentenciaInfo = $con->prepare($consultaInfo);
-$sentenciaInfo->bind_param("sssii", $ClienteServicioContratado,$ClienteFecha_af, $ClienteCosto, $ClientePlanServicio, $idCliente);
-$idCliente = $sentenciaCliente->insert_id;
+    $sentenciaInfo = $con->prepare($consultaInfo);
+    $sentenciaInfo->bind_param("sssii", $ClienteServicioContratado, $ClienteFecha_af, $ClienteCosto, $ClientePlanServicio, $idCliente);
+    $idCliente = $sentenciaCliente->insert_id;
+    $sentenciaInfo->execute();
+    $filasInfo = $sentenciaInfo->affected_rows;
 
-$sentenciaInfo->execute();
-
-// Insertar en la tabla "contrato"
-$consultaContrato = "INSERT INTO contrato(contrato, detalle, idcliente) 
+    // Insertar en la tabla "contrato"
+    $consultaContrato = "INSERT INTO contrato(contrato, detalle, idcliente) 
                     VALUES (?,?,?);";
-$sentenciaContrato = $con->prepare($consultaContrato);
-$sentenciaContrato->bind_param("ssi", $NombreEncriptadoDoc,$ClienteDetalleContrato, $idCliente);
+    $sentenciaContrato = $con->prepare($consultaContrato);
+    $sentenciaContrato->bind_param("ssi", $NombreEncriptadoDoc, $ClienteDetalleContrato, $idCliente);
 
-$sentenciaContrato->execute();
-if ($sentenciaUsuario->execute()&&$sentenciaFoto->execute()&&$sentenciaPersona->execute()&& $sentenciaCliente->execute() && $sentenciaInfo->execute() && $sentenciaContrato->execute()) {
-    $con->commit();
-    echo "correcto";
-} else {
-    echo "Error al insertar registros";
-    $con->rollBack();
-}
+    $sentenciaContrato->execute();
+    $filasContrato = $sentenciaContrato->affected_rows;
+
+    $ConsultaAdicional = "";
+    if ($ClienteEmpresa <> '' || $ClienteDetalleContrato <> '') {
+        $ConsultaAdicional = " INSERT INTO empresa (dato, idcliente) VALUES (?, ?);";
+        $sentenciaAdicional = $con->prepare($ConsultaAdicional);
+        $sentenciaAdicional->bind_param("si", $ClienteEmpresa, $idCliente);
+
+        $sentenciaAdicional->execute();
+        $filasAdicional = $sentenciaAdicional->affected_rows;
+    }
+
+    if ($filasUsuario > 0 && $filasFoto > 0 && $filasPersona > 0 && $filasCliente > 0 && $filasInfo > 0 && $filasContrato > 0) {
+        $con->commit();
+        echo "correcto";
+    } else {
+        echo "Error al insertar registros";
+        $con->rollBack();
+    }
 }

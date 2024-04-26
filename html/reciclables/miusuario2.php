@@ -1,5 +1,6 @@
 <?php
 $titular = $_SESSION['nus_PORTALCONSULTANCY'];
+
 $dataBarra = mysqli_query($con, "select i.servicio as dat1, i.fecha_afiliacion as dat2, i.costo_plan as dat3, t.nombre_tipo as dat4, c.idcliente as dat5, f.fotocol as dat6
         from usuario u,persona p, cliente c, info i , tipo_plan t, foto f
         where u.idusuario=p.idusuario and p.idpersona=c.idpersona and u.email='$titular' and u.idusuario=f.idusuario  
@@ -12,16 +13,40 @@ while ($ArrayMiUsuario_Home = mysqli_fetch_array($dataBarra)) {
     $Hidcliente = $ArrayMiUsuario_Home['dat5'];
     $HFotoUsuario = $ArrayMiUsuario_Home['dat6'];
 }
-$ConsultaDatoEmpresas = mysqli_query($con, "select e.dato as dat1, concat(p.apellido,' ',p.nombre) as dat2, p.telefono as dat3, a.detalle_horario as dat4 
-                          from persona p, cliente c, info i , asesor a, empresa e 
-                          where c.idcliente=i.idcliente and c.idcliente=e.idcliente and i.idasesor=a.idasesor and a.idpersona=p.idpersona and c.idcliente=$Hidcliente ;");
+$contExistEmpresas = 0;
 
-while ($ArrayEmpresas_Home = mysqli_fetch_array($ConsultaDatoEmpresas)) {
-    $Hempresa=$ArrayEmpresas_Home['dat1'];
-    $Hcliente=$ArrayEmpresas_Home['dat2'];
-    $Htelefono=$ArrayEmpresas_Home['dat3'];
-    $HHorario=$ArrayEmpresas_Home['dat4'];
+$ConsultaTieneEmpresas = mysqli_query($con, "select *
+        from persona p, cliente c, info i , asesor a, empresa e 
+        where c.idcliente=i.idcliente and c.idcliente=e.idcliente and i.idasesor=a.idasesor and a.idpersona=p.idpersona and c.idcliente=$Hidcliente ;");
+
+while ($ArrayTieneEmpresas = mysqli_fetch_array($ConsultaTieneEmpresas)) {
+    $contExistEmpresas++;
 }
+
+if ($contExistEmpresas == 0) {
+    $ConsultaDatoEmpresas = mysqli_query($con, "select  concat(p.apellido,' ',p.nombre) as dat2, p.telefono as dat3, a.detalle_horario as dat4 
+    from persona p, cliente c, info i , asesor a  
+    where c.idcliente=i.idcliente and i.idasesor=a.idasesor and a.idpersona=p.idpersona and c.idcliente=$Hidcliente ;");
+
+    while ($ArrayEmpresas_Home = mysqli_fetch_array($ConsultaDatoEmpresas)) {
+
+        $Hcliente = $ArrayEmpresas_Home['dat2'];
+        $Htelefono = $ArrayEmpresas_Home['dat3'];
+        $HHorario = $ArrayEmpresas_Home['dat4'];
+    }
+} else {
+    $ConsultaDatoEmpresas = mysqli_query($con, "select e.dato as dat1, concat(p.apellido,' ',p.nombre) as dat2, p.telefono as dat3, a.detalle_horario as dat4 
+    from persona p, cliente c, info i , asesor a, empresa e 
+    where c.idcliente=i.idcliente and c.idcliente=e.idcliente and i.idasesor=a.idasesor and a.idpersona=p.idpersona and c.idcliente=$Hidcliente ;");
+
+    while ($ArrayEmpresas_Home = mysqli_fetch_array($ConsultaDatoEmpresas)) {
+        $Hempresa = $ArrayEmpresas_Home['dat1'];
+        $Hcliente = $ArrayEmpresas_Home['dat2'];
+        $Htelefono = $ArrayEmpresas_Home['dat3'];
+        $HHorario = $ArrayEmpresas_Home['dat4'];
+    }
+}
+
 ?>
 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">

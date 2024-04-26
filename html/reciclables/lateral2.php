@@ -99,11 +99,13 @@
             <div data-i18n="Error">Persona Física</div>
           </a>
         </li>
-        <li class="menu-item">
+        <?php if ($contExistEmpresas>0) {
+          echo '<li class="menu-item">
           <a href="PersonaMoral.php" class="menu-link">
             <div data-i18n="Under Maintenance">Persona Moral</div>
           </a>
-        </li>
+        </li>';
+        }?>
       </ul>
     </li>    
     <!-- Misc -->

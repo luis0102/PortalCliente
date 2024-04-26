@@ -52,7 +52,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             <!-- Menu -->
-            <?php include  "reciclables/lateral2.php"; ?>
+
             <!-- / Menu -->
 
             <!-- Layout container -->
@@ -60,7 +60,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                 <!-- Navbar -->
 
                 <?php include  "reciclables/miusuario2.php"; ?>
-
+                <?php include  "reciclables/lateral2.php"; ?>
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
@@ -74,7 +74,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                         $titular = $_SESSION['nus_PORTALCONSULTANCY'];
                         $Consulta_cliente = mysqli_query($con, "select i.servicio as dat1, i.fecha_afiliacion as dat2, i.costo_plan as dat3, c.idcliente as dat4, i.idinfo as dat5 
                         from usuario u,persona p, cliente c, info i 
-                        where u.idusuario=p.idusuario and p.idpersona=c.idpersona and u.email='luis95k@gmail.com' and c.idcliente=i.idcliente;");
+                        where u.idusuario=p.idusuario and p.idpersona=c.idpersona and u.email='$titular' and c.idcliente=i.idcliente;");
                         while ($valorft = mysqli_fetch_array($Consulta_cliente)) {
                             $servicio = $valorft['dat1'];
                             $fechaInicio = $valorft['dat2'];
@@ -105,7 +105,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                         // FROM doc_tributacion d, info i, tipo t, tipo_documento td, empresa e 
                                         // WHERE d.idinfo=1 AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idempresa=e.idempresa;
                                         $ConsultaEmpresas = mysqli_query($con, "select d.mes as dat1, d.isr as dat2, d.iva as dat3, d.isr+d.iva as dat4, d.idestado_doc as dat5, d.ruta as dat6 
-                                            FROM doc_tributacion d, info i, tipo t, tipo_documento td 
+                                            FROM doc_tributacion d, tipo t, tipo_documento td 
                                             WHERE d.idinfo=$idinfo AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idtipo=1 AND d.idtipo_documento=1");
                                         $ContTabEmpresas1 = 1;
                                         while ($valorft = mysqli_fetch_array($ConsultaEmpresas)) {
@@ -171,7 +171,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                         // FROM doc_tributacion d, info i, tipo t, tipo_documento td, empresa e 
                                         // WHERE d.idinfo=1 AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idempresa=e.idempresa;
                                         $ConsultaEmpresas = mysqli_query($con, "select d.mes as dat1, d.isr as dat2, d.iva as dat3, d.isr+d.iva as dat4, d.idestado_doc as dat5, d.ruta as dat6
-                                            FROM doc_tributacion d, info i, tipo t, tipo_documento td 
+                                            FROM doc_tributacion d, tipo t, tipo_documento td 
                                             WHERE d.idinfo=$idinfo AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idtipo=1 AND d.idtipo_documento=2");
                                         $ContTabEmpresas2 = 1;
                                         while ($valorft = mysqli_fetch_array($ConsultaEmpresas)) {
@@ -304,7 +304,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                         // FROM doc_tributacion d, info i, tipo t, tipo_documento td, empresa e 
                                         // WHERE d.idinfo=1 AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idempresa=e.idempresa;
                                         $ConsultaEmpresas = mysqli_query($con, "select d.fecha_registro as dat1, d.mes as dat2, d.detalle as dat3, d.ruta as dat4
-                                            FROM doc_tributacion d, info i, tipo t, tipo_documento td 
+                                            FROM doc_tributacion d, tipo t, tipo_documento td 
                                             WHERE d.idinfo=$idinfo AND d.idtipo=t.idtipo AND d.idtipo_documento=td.idtipo_documento AND d.idtipo=1 AND d.idtipo_documento=4");
                                         $ContTabEmpresas2 = 1;
                                         while ($valorft = mysqli_fetch_array($ConsultaEmpresas)) {
