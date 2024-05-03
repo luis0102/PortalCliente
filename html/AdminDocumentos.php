@@ -115,8 +115,8 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                             </button>
                                         </li>
                                         <li class="nav-item">
-                                            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-messages" aria-controls="navs-justified-messages" aria-selected="false">
-                                                <i class="tf-icons bx bx-message-square"></i> Messages
+                                            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-cambiar-estado-doc" aria-controls="navs-cambiar-estado-doc" aria-selected="false">
+                                                <i class="tf-icons bx bx-list-check"></i> Cambiar estado de Documento
                                             </button>
                                         </li>
                                     </ul>
@@ -361,16 +361,183 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade" id="navs-justified-messages" role="tabpanel">
-                                            <p>
-                                                Oat cake chupa chups dragée donut toffee. Sweet cotton candy jelly beans macaroon gummies
-                                                cupcake gummi bears cake chocolate.
-                                            </p>
-                                            <p class="mb-0">
-                                                Cake chocolate bar cotton candy apple pie tootsie roll ice cream apple pie brownie cake. Sweet
-                                                roll icing sesame snaps caramels danish toffee. Brownie biscuit dessert dessert. Pudding jelly
-                                                jelly-o tart brownie jelly.
-                                            </p>
+                                        <div class="tab-pane fade" id="navs-cambiar-estado-doc" role="tabpanel">
+                                            <div class="card-header d-flex align-items-center justify-content-between">
+                                                <h5 class="mb-0">Cambiar estado de Documento</h5>
+                                                <small class="text-muted float-end">Merged input group</small>
+                                            </div>
+                                            <div class="card-body">
+                                                <form id="FormEstadoDocumento" method="POST">
+                                                    <div id="CajaUsuarioNCliente" class="row mb-3">
+                                                        <label class="col-sm-2 col-form-label" for="UsuarioNCliente">Cliente <strong>(*)</strong></label>
+                                                        <div class="col-sm-10" style="cursor: pointer;">
+                                                            <div class="input-group input-group-merge" data-bs-toggle="modal" data-bs-target="#modalBCliente2">
+                                                                <input type="text" class="form-control" style="cursor: pointer;" id="UsuarioNCliente2" placeholder="Seleccionar Cliente" aria-label="Seleccionar Cliente" aria-describedby="basic-icon-default-fullname2" readonly>
+                                                                <span class="input-group-text"><i class="bx bx-search"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="mt-3">
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="modalBCliente2" tabindex="-1" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="modalCenterTitle">Buscar Cliente</h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="mb-3 row">
+                                                                                <label for="html5-search-input" class="col-md-2 col-form-label">Ingrese CURP</label>
+                                                                                <div class="col-md-10">
+                                                                                    <input class="form-control" type="search" placeholder="Buscar Cliente ..." id="ModalBuscarCliente2" />
+                                                                                    <input id="identificadorCliente2" type="hidden" class="input-group-text" readonly>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row g-2">
+                                                                                <div class="card">
+                                                                                    <h5 class="card-header">Seleccione el Cliente: </h5>
+                                                                                    <div class="table-responsive text-nowrap">
+                                                                                        <table class="table table-hover">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>N°</th>
+                                                                                                    <th>Cliente</th>
+                                                                                                    <th># de CRUP</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody id="tablaClientes2" class="table-border-bottom-0">
+
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                                                Cerrar
+                                                                            </button> -->
+                                                                            <!-- <button type="button" class="btn btn-primary">Listo</button> -->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label for="DocumentoUpdateTipoPersona" class="col-sm-2 form-label">Tipo de Persona <strong>(*)</strong></label>
+                                                        <div class="col-sm-10">
+                                                            <div class="input-group input-group-merge">
+                                                                <select id="DocumentoUpdateTipoPersona" name="DocumentoUpdateTipoPersona" onchange="ConsultarDocumentosDeCliente();" class="form-select">
+                                                                    <option value="0">Seleccione un tipo</option>
+                                                                    <option value="1">Persona Fisica</option>
+                                                                    <option value="2">Persona Moral</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label for="DocumentoUpdateTipoDocumento" class="col-sm-2 form-label">Tipo de Documento <strong>(*)</strong></label>
+                                                        <div class="col-sm-10">
+                                                            <div class="input-group input-group-merge">
+                                                                <select id="DocumentoUpdateTipoDocumento" name="DocumentoUpdateTipoDocumento" onchange="ConsultarDocumentosDeCliente();" class="form-select">
+                                                                    <option value="0">Seleccione un tipo</option>
+                                                                    <option value="1">SAT</option>
+                                                                    <option value="2">Cedular</option>
+                                                                    <option value="3">DIOT</option>
+                                                                    <option value="4">OTRO</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label for="DocumentoNuevoEstado" class="col-sm-2 form-label">ESTADO <strong>(*)</strong></label>
+                                                        <div class="col-sm-10">
+                                                            <div class="input-group input-group-merge">
+                                                                <select id="DocumentoNuevoEstado" name="DocumentoNuevoEstado" onchange="" class="form-select">
+                                                                    <option value="0">Seleccione ESTADO</option>
+                                                                    <option value="1">PENDIENTE</option>
+                                                                    <option value="2">COMPLETADO</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="CajaResultadoDocumentos" class="row mb-3">
+                                                        <label class="col-sm-2 col-form-label" for="NuevaNEmpresa2">Resultados <strong>:</strong></label>
+                                                        <div class="table-responsive text-nowrap">
+                                                            <table class="table table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>N°</th>
+                                                                        <!-- <th>Tipo Persona</th>
+                                                                        <th>Tipo Documento</th> -->
+                                                                        <th>ISR</th>
+                                                                        <th>IVA</th>
+                                                                        <th>Mes</th>
+                                                                        <th>Estado</th>
+                                                                        <th>Opción</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="TablaUpdateDocumentos" class="table-border-bottom-0">
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-6">
+                                                            <div class="mt-3">
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" id="ModalEditarDocumento" tabindex="-1" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="modalCenterTitle">Editar Documento</h5>
+                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <input type="hidden" name="IdentificadorForUdapteDocumento" id="IdentificadorForUdapteDocumento">
+                                                                            <div id="FormularioUpdate" class="modal-body">
+
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                                                    Cerrar
+                                                                                </button>
+                                                                                <button type="button" class="btn btn-primary">Guardar Cambio</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!-- <div class="row mb-3">
+                                                        <label class="col-sm-2 col-form-label" for="UsuariosDetalle">Detalle <strong>(*)</strong></label>
+                                                        <div class="col-sm-10">
+                                                            <div class="input-group input-group-merge">
+                                                                <span id="basic-icon-default-message2" class="input-group-text"><i class="bx bx-detail"></i></span>
+                                                                <textarea id="UsuariosDetalle" name="UsuariosDetalle" class="form-control" placeholder="Escriba alguna descripción si es el caso" aria-label="Hi, Do you have a moment to talk Joe?" aria-describedby="basic-icon-default-message2"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                    <hr class="m-0">
+                                                    <hr class="m-0">
+                                                    <div class="mb-3 col-12 mb-0">
+                                                        <div class="alert alert-warning">
+                                                            <h6 class="alert-heading fw-bold mb-1">Alerta</h6>
+                                                            <p class="mb-0">Los campos con <strong>(*)</strong> son obligatorios.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row justify-content-end">
+                                                        <div class="col-sm-10">
+                                                            <button type="submit" id="BTNCompletarUpdateEstadoDocumento" class="btn btn-primary">Guardar Cambios</button>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -419,14 +586,16 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="jvscons/funcionesjs.js"></script>
+    <script src="jvscons/funcionesjsAdmin.js"></script>
     <script type="text/javascript">
         buscarCliente();
         document.getElementById("ModalBuscarCliente").addEventListener("keyup", buscarCliente)
         document.getElementById("ModalBuscarEmpresa").addEventListener("keyup", buscarEmpresa)
+        document.getElementById("ModalBuscarCliente2").addEventListener("keyup", buscarCliente2Prueba)
         $(document).ready(function() {
-            $("#BTNCompletarRegistroCliente").on('click', function(e) {
+            $("#BTNCompletarUpdateEstadoDocumento").on('click', function(e) {
                 e.preventDefault();
-                CrearNuevoCliente();
+                CambiarEstadoDocumento();
             });
         });
         $(document).ready(function() {
@@ -516,8 +685,25 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
             document.getElementById("identificadorEmpresa").setAttribute("value", id);
 
         })
+        // pasar datos seleccionados del cliente
+        $(document).on("click", "#SelectClienteDocumento", function() {
+            var id = $(this).data("id");
+            var valor = $(this).data("valor-nombre");
+
+            // document.getElementById("DocumentoNCliente").setAttribute("value", id);
+
+            document.getElementById("UsuarioNCliente2").setAttribute("value", valor);
+            document.getElementById("identificadorCliente2").setAttribute("value", id);
+
+        })
+        // pasar datos seleccionados de la empresa  
+        $(document).on("click", "#SelectRegistroForUpdateDocumento", function() {
+            var id = $(this).data("id");
+            document.getElementById("IdentificadorForUdapteDocumento").setAttribute("value", id);
+            FormularioEditarDocumento();
+        })
     </script>
-    <script src="jvscons/funcionesjs.js"></script>
+
     <?php
     include  "reciclables/scripts2.php";
     ?>

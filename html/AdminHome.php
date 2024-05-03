@@ -123,11 +123,11 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                                 <i class="tf-icons bx bx-user-circle"></i> Administración de Usuarios
                                             </button>
                                         </li>
-                                        <li class="nav-item">
+                                        <!-- <li class="nav-item">
                                             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-messages" aria-controls="navs-justified-messages" aria-selected="false">
                                                 <i class="tf-icons bx bx-message-square"></i> Mensajes
                                             </button>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane fade active show" id="navs-justified-home" role="tabpanel">
@@ -215,6 +215,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                                             <div class="input-group input-group-merge" data-bs-toggle="modal" data-bs-target="#modalBAsesor">
                                                                 <span id="basic-icon-default-company2" class="input-group-text"><i class="bx bxs-user"></i></span>
                                                                 <input type="text" id="ClienteAsesor" name="ClienteAsesor" style="cursor: pointer;" class="form-control" placeholder="Seleccione Asesor" aria-label="Seleccione Asesor" aria-describedby="basic-icon-default-company2">
+                                                                <label id="NombreAsesor" class="input-group-text" for="ClienteAsesor"></label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -233,7 +234,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                                                                 <label for="html5-search-input" class="col-md-2 col-form-label">Ingrese nombre</label>
                                                                                 <div class="col-md-10">
                                                                                     <input class="form-control" type="search" placeholder="Buscar Asesor ..." id="ModalBuscarAsesor" />
-                                                                                    <input id="identificadorAsesor" type="" class="input-group-text" readonly>
+                                                                                    <input id="identificadorAsesor" type="hidden" class="input-group-text" readonly>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="row g-2">
@@ -370,7 +371,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                                                                 <label for="html5-search-input" class="col-md-2 col-form-label">Ingrese CURP</label>
                                                                                 <div class="col-md-10">
                                                                                     <input class="form-control" type="search" placeholder="Buscar Cliente ..." id="ModalBuscarCliente" />
-                                                                                    <input id="identificadorCliente" type="" class="input-group-text" readonly>
+                                                                                    <input id="identificadorCliente" type="hidden" class="input-group-text" readonly>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="row g-2">
@@ -489,7 +490,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                                                                 <label for="html5-search-input" class="col-md-2 col-form-label">Ingrese CURP</label>
                                                                                 <div class="col-md-10">
                                                                                     <input class="form-control" type="search" placeholder="Buscar Cliente ..." id="ModalBuscarCliente2" />
-                                                                                    <input id="identificadorCliente2" type="" class="input-group-text" readonly>
+                                                                                    <input id="identificadorCliente2" type="hidden" class="input-group-text" readonly>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="row g-2">
@@ -572,7 +573,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                                 </form>
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade" id="navs-justified-messages" role="tabpanel">
+                                        <!-- <div class="tab-pane fade" id="navs-justified-messages" role="tabpanel">
                                             <p>
                                                 Oat cake chupa chups dragée donut toffee. Sweet cotton candy jelly beans macaroon gummies
                                                 cupcake gummi bears cake chocolate.
@@ -582,7 +583,7 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
                                                 roll icing sesame snaps caramels danish toffee. Brownie biscuit dessert dessert. Pudding jelly
                                                 jelly-o tart brownie jelly.
                                             </p>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
 
@@ -719,6 +720,17 @@ if ($_SESSION['estado_PORTALCONSULTANCY'] <> "on") {
         }
     </script>
     <script>
+        $(document).on("click", "#SelectAsesor", function() {
+            var id = $(this).data("id");
+            var valor = $(this).data("valor-nombre");
+
+            // document.getElementById("DocumentoNCliente").setAttribute("value", id);
+            document.getElementById("ClienteAsesor").setAttribute("value", valor);            
+            // document.getElementById("NombreAsesor").innerHTML = id;
+            $("#NombreAsesor").text(id);
+            
+
+        })
         // pasar id
         $(document).on("click", "#SelectClienteDocumento", function() {
             var id = $(this).data("id");

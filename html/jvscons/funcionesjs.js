@@ -237,6 +237,8 @@ function CrearNuevoCliente() {
                     if (data.trim() == "correcto") {
                         console.log(data);
                         FormNuevoCliente[0].reset();
+                        $("#ClienteAsesor").val("");
+                        $("#identificadorAsesor").val("");
                         content.html('<div class="bs-toast toast toast-placement-ex m-2 fade bg-success bottom-0 end-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000"><div class="toast-header"><i class="bx bx-bell me-2"></i><div class="me-auto fw-semibold">Mensaje:</div><small>Hace 1 seg</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button></div><div class="toast-body">Cliente Registrado correctamente.</div></div>');
                     } else {
                         if (data.trim() == "errorfotoformato") {

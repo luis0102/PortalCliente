@@ -17,7 +17,7 @@ $numreg = 0;
 if ($num_rows > 0) {
     while ($row = $resultadoConsultaCliente->fetch_assoc()) {
         $numreg++;
-        $html .= '<tr id="SelectClienteDocumento" style="cursor: pointer;" data-bs-dismiss="modal" data-valor-nombre="'.$row['dat1'].'" valor-id="'.$row['dat2'].'" data-id="'.$row['dat2'].'">
+        $html .= '<tr id="SelectAsesor" style="cursor: pointer;" data-bs-dismiss="modal" data-valor-nombre="'.$row['dat1'].'" valor-id="'.$row['dat2'].'" data-id="'.$row['dat2'].'">
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong>' . $numreg . '</strong></td>
                         <td><b>' . $row['dat1'] . '</b></td>
                         <td><b>' . $row['dat2'] . '</b></td>                        

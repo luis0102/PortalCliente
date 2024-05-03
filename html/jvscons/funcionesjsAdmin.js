@@ -147,3 +147,43 @@ function buscarAsesor() {
             content.innerHTML = data
         }).catch(err => console.log(err))
 }
+
+function ConsultarDocumentosDeCliente() {
+    var formData = new FormData();
+    var identificadorCliente2 = $("#identificadorCliente2").val();
+    var DocumentoUpdateTipoPersona = $("#DocumentoUpdateTipoPersona").val();
+    var DocumentoUpdateTipoDocumento = $("#DocumentoUpdateTipoDocumento").val();
+    let content = document.getElementById("TablaUpdateDocumentos")
+
+
+    formData.append('identificadorCliente2', identificadorCliente2);
+    formData.append('DocumentoUpdateTipoPersona', DocumentoUpdateTipoPersona);
+    formData.append('DocumentoUpdateTipoDocumento', DocumentoUpdateTipoDocumento);
+    let url = "ajxcons/ConsultarDocumentosDeCliente.php"
+    fetch(url, {
+        method: "POST",
+        body: formData
+    }).then(response => response.json())
+        .then(data => {
+            content.innerHTML = data
+        }).catch(err => console.log(err))
+
+}
+function FormularioEditarDocumento() {
+    var formData = new FormData();
+    var IdentificadorForUdapteDocumento = $("#IdentificadorForUdapteDocumento").val();
+    let content = document.getElementById("FormularioUpdate")
+
+
+    formData.append('IdentificadorForUdapteDocumento', IdentificadorForUdapteDocumento);
+    let url = "ajxcons/FormularioEditarDocumento.php"
+    fetch(url, {
+        method: "POST",
+        body: formData
+    }).then(response => response.json())
+        .then(data => {
+            content.innerHTML = data
+        }).catch(err => console.log(err))
+
+}
+function CambiarEstadoDocumento() { }
